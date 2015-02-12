@@ -68,7 +68,7 @@ A command can take options:
 | Option that can be used multiple times <br> (the value would be an array) | `greet [--iterations=]*` |
 | Option with a shortcut         | `greet -y|--yell`       |
 
-Options are always **optional** (duh). If an option is required, then it should be an argument.
+Options are always optional (duh). If an option is required, then it should be an argument.
 
 ### Command callable
 
