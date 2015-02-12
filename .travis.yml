@@ -5,18 +5,11 @@ php:
   - 5.6
   - hhvm
 
-matrix:
-  include:
-    - php: 5.5
-      env: dependencies=lowest
-
 sudo: false
 
 before_script:
-  - composer self-update
   - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then composer require satooshi/php-coveralls:dev-master -n ; fi
   - if [[ "$TRAVIS_PHP_VERSION" != '5.6' ]]; then composer install -n ; fi
-  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --prefer-stable -n; fi;
 
 script:
   - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then phpunit --coverage-clover clover.xml ; fi
