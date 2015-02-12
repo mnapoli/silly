@@ -65,7 +65,7 @@ A command can take options:
 | Simple flag                    | `greet --yell`          |
 | Option with an mandatory value | `greet --iterations=`   |
 | Option with an optional value  | `greet --iterations[=]` |
-| Option that can be used multiple times (the value would be an array) | `greet [--iterations=]*` |
+| Option that can be used multiple times <br> (the value would be an array) | `greet [--iterations=]*` |
 | Option with a shortcut         | `greet -y|--yell`       |
 
 Options are always **optional** (duh). If an option is required, then it should be an argument.
