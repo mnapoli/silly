@@ -72,7 +72,7 @@ Options are always **optional** (duh). If an option is required, then it should 
 
 ### Command callable
 
-A command can be [any callable](http://php.net/manual/en/language.types.callable.php):
+A command can be [any PHP callable](http://php.net/manual/en/language.types.callable.php):
 
 ```php
 // Closure
@@ -96,7 +96,9 @@ $app->command('foo', ['someFunction']);
 The callable can take as parameters the arguments and options defined in the expression:
 
 ```php
-$app->command('greet name --yell', function ($name, $yell) {});
+$app->command('greet name --yell', function ($name, $yell) {
+    // ...
+});
 ```
 
 When running `bin/console greet john --yell`:
@@ -107,13 +109,17 @@ When running `bin/console greet john --yell`:
 You can also ask for the `$input` and `$output` parameters to get the traditional Symfony `InputInterface` and `OutputInterface` objects:
 
 ```php
-$app->command('greet name', function (InputInterface $input, OutputInterface $output) {});
+$app->command('greet name', function (InputInterface $input, OutputInterface $output) {
+    // ...
+});
 ```
 
 Finally, you can mix all that. Parameters are detected by their name.
 
 ```php
-$app->command('greet name', function ($name, InputInterface $input, OutputInterface $output) {});
+$app->command('greet name', function ($name, InputInterface $input, OutputInterface $output) {
+    // ...
+});
 ```
 
 ## Learn more
