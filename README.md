@@ -131,7 +131,7 @@ $app->command(
 );
 ```
 
-## Learn more
+## Do more
 
 Silly is just an implementation over the Symfony Console. Read [its documentation](http://symfony.com/doc/current/components/console/introduction.html) to learn everything you can do with it.
 
