@@ -90,7 +90,7 @@ $app->command('foo', [$object, 'method']);
 $app->command('foo', ['MyClass', 'method']);
 
 // A function
-$app->command('foo', ['someFunction']);
+$app->command('foo', 'someFunction');
 ```
 
 The callable can take as parameters the arguments and options defined in the expression:
