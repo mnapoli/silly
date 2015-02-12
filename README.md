@@ -109,17 +109,26 @@ When running `bin/console greet john --yell`:
 You can also ask for the `$input` and `$output` parameters to get the traditional Symfony `InputInterface` and `OutputInterface` objects:
 
 ```php
-$app->command('greet name', function (InputInterface $input, OutputInterface $output) {
-    // ...
-});
+$app->command(
+    'greet name --yell',
+    function (InputInterface $input, OutputInterface $output) {
+        $name = $input->getArgument('name');
+        $yell = $input->getOption('yell');
+
+        // ...
+    }
+);
 ```
 
 Finally, you can mix all that. Parameters are detected by their name.
 
 ```php
-$app->command('greet name', function ($name, InputInterface $input, OutputInterface $output) {
-    // ...
-});
+$app->command(
+    'greet name --yell',
+    function ($name, InputInterface $input, OutputInterface $output) {
+        // ...
+    }
+);
 ```
 
 ## Learn more
