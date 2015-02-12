@@ -42,29 +42,31 @@ $app->run();
 
 Commands are defined using a string expression. The expression must start with the command name, optionally using `:` as a namespace separator, for example:
 
-```
-greet
-demo:greet
-```
+- `greet`
+- `demo:greet`
 
 #### Arguments
 
 A command can take arguments:
 
-- required argument: `greet name`
-- optional argument: `greet name?`
-- array argument with 0-n values: `greet name*`
-- array argument with at least one value: `greet name+`
+| Description                            | Example       |
+|----------------------------------------|---------------|
+| Required argument                      | `greet name`  |
+| Optional argument                      | `greet name?` |
+| Array argument with 0-n values         | `greet name*` |
+| Array argument with at least one value | `greet name+` |
 
 #### Options
 
 A command can take options:
 
-- an simple flag: `greet --yell`
-- an option with an mandatory value: `greet --iterations=`
-- an option with an optional value: `greet --iterations[=]`
-- an option that can be used multiple times (the value would be an array): `greet [--iterations=]*`
-- an option with a shortcut: `greet -y|--yell`
+| Description                    | Example                 |
+|--------------------------------|-------------------------|
+| Simple flag                    | `greet --yell`          |
+| Option with an mandatory value | `greet --iterations=`   |
+| Option with an optional value  | `greet --iterations[=]` |
+| Option that can be used multiple times (the value would be an array) | `greet [--iterations=]*` |
+| Option with a shortcut         | `greet -y|--yell`       |
 
 Options are always **optional** (duh). If an option is required, then it should be an argument.
 
