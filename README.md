@@ -131,6 +131,24 @@ $app->command(
 );
 ```
 
+#### Console helpers
+
+You can use [console helpers](http://symfony.com/doc/current/components/console/helpers/index.html) by getting them from the application:
+
+```php
+$app = new Silly\Application();
+
+$app->command('greet', function () use ($app) {
+    $helper = $app->getHelperSet()->get('question');
+
+    $question = new ConfirmationQuestion('Are you sure?', false);
+
+    if ($helper->ask($input, $output, $question)) {
+        $output->writeln('Hello!');
+    }
+});
+```
+
 ## Do more
 
 Silly is just an implementation over the Symfony Console. Read [its documentation](http://symfony.com/doc/current/components/console/introduction.html) to learn everything you can do with it.
