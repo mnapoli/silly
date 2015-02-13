@@ -138,7 +138,7 @@ You can use [console helpers](http://symfony.com/doc/current/components/console/
 ```php
 $app = new Silly\Application();
 
-$app->command('greet', function () use ($app) {
+$app->command('greet', function ($input, $output) use ($app) {
     $helper = $app->getHelperSet()->get('question');
 
     $question = new ConfirmationQuestion('Are you sure?', false);
