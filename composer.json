@@ -21,5 +21,10 @@
     },
     "require-dev": {
         "phpunit/phpunit": "~4.5"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.2.x-dev"
+        }
     }
 }
