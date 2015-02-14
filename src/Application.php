@@ -90,6 +90,25 @@ class Application extends SymfonyApplication
         }
     }
 
+    /**
+     * Define default values for the arguments of the command.
+     *
+     * @param string $commandName      Name of the command.
+     * @param array  $argumentDefaults Default argument values.
+     *
+     * @api
+     */
+    public function defaults($commandName, array $argumentDefaults = [])
+    {
+        $command = $this->get($commandName);
+        $commandDefinition = $command->getDefinition();
+
+        foreach ($argumentDefaults as $name => $default) {
+            $argument = $commandDefinition->getArgument($name);
+            $argument->setDefault($default);
+        }
+    }
+
     private function createCommand($expression, callable $callable)
     {
         $result = $this->expressionParser->parse($expression);

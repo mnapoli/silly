@@ -21,7 +21,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_define_command_descriptions()
+    public function allows_to_define_command_descriptions()
     {
         $this->application->command('greet name --yell', function () {});
         $this->application->descriptions('greet', 'Greet someone', [
@@ -34,5 +34,22 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Greet someone', $command->getDescription());
         $this->assertEquals('Who?', $command->getDefinition()->getArgument('name')->getDescription());
         $this->assertEquals('Yell?', $command->getDefinition()->getOption('yell')->getDescription());
+    }
+
+    /**
+     * @test
+     */
+    public function allows_to_define_default_values()
+    {
+        $this->application->command('greet firstname? lastname?', function () {});
+        $this->application->defaults('greet', [
+            'firstname' => 'John',
+            'lastname'  => 'Doe',
+        ]);
+
+        $definition = $this->application->get('greet')->getDefinition();
+
+        $this->assertEquals('John', $definition->getArgument('firstname')->getDefault());
+        $this->assertEquals('Doe', $definition->getArgument('lastname')->getDefault());
     }
 }
