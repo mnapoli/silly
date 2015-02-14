@@ -35,6 +35,12 @@ class Application extends SymfonyApplication
         parent::__construct($name, $version);
     }
 
+    /**
+     * Define a CLI command using a string expression and a callable.
+     *
+     * @param string   $expression Defines the arguments and options of the command.
+     * @param callable $callable   Called when the command is called.
+     */
     public function command($expression, callable $callable)
     {
         $commandFunction = function (InputInterface $input, OutputInterface $output) use ($callable) {
