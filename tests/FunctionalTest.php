@@ -81,6 +81,20 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $this->assertOutputIs('greet --iterations=123', '123');
     }
 
+    /**
+     * @test
+     */
+    public function it_should_run_a_command_with_multiple_options()
+    {
+        $this->application->command('greet -d|--dir=*', function ($dir, Out $output) {
+            $output->write('[' . implode(', ', $dir) . ']');
+        });
+        $this->assertOutputIs('greet', '[]');
+        $this->assertOutputIs('greet -d foo', '[foo]');
+        $this->assertOutputIs('greet -d foo -d bar', '[foo, bar]');
+        $this->assertOutputIs('greet --dir=foo --dir=bar', '[foo, bar]');
+    }
+
     private function assertOutputIs($command, $expected)
     {
         $output = new SpyOutput();

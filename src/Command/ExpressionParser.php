@@ -68,14 +68,7 @@ class ExpressionParser
 
     private function parseOption($token)
     {
-        // It's an array if it looks like `[--iterations=]*`
-        $isArrayValue = false;
-        if ($this->startsWith($token, '[-') && $this->endsWith($token, ']*')) {
-            $isArrayValue = true;
-            $token = substr($token, 2, -2);
-        }
-
-        // Shortcut `-y--yell`
+        // Shortcut `-y|--yell`
         if (strpos($token, '|') !== false) {
             list($shortcut, $token) = explode('|', $token, 2);
             $shortcut = ltrim($shortcut, '-');
@@ -85,15 +78,12 @@ class ExpressionParser
 
         $name = ltrim($token, '-');
 
-        if ($isArrayValue) {
+        if ($this->endsWith($token, '=*')) {
             $mode = InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY;
-            $name = rtrim($name, '=');
+            $name = substr($name, 0, -2);
         } elseif ($this->endsWith($token, '=')) {
             $mode = InputOption::VALUE_REQUIRED;
             $name = rtrim($name, '=');
-        } elseif ($this->endsWith($token, '[=]')) {
-            $mode = InputOption::VALUE_OPTIONAL;
-            $name = substr($name, 0, -3);
         } else {
             $mode = InputOption::VALUE_NONE;
         }

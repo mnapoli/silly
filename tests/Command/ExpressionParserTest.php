@@ -121,23 +121,9 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_parses_options_with_optional_values()
-    {
-        $this->assertParsesTo('greet --yell[=]', [
-            'name' => 'greet',
-            'arguments' => [],
-            'options' => [
-                new InputOption('yell', null, InputOption::VALUE_OPTIONAL),
-            ],
-        ]);
-    }
-
-    /**
-     * @test
-     */
     public function it_parses_options_with_multiple_values()
     {
-        $this->assertParsesTo('greet [--name=]*', [
+        $this->assertParsesTo('greet --name=*', [
             'name' => 'greet',
             'arguments' => [],
             'options' => [
@@ -151,7 +137,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_options_with_shortcuts()
     {
-        $this->assertParsesTo('greet -y|--yell -it|--iterations= [-n|--name=]*', [
+        $this->assertParsesTo('greet -y|--yell -it|--iterations= -n|--name=*', [
             'name' => 'greet',
             'arguments' => [],
             'options' => [

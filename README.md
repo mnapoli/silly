@@ -49,24 +49,23 @@ Commands are defined using a string expression. The expression must start with t
 
 A command can take arguments:
 
-| Description                            | Example       |
-|----------------------------------------|---------------|
-| Required argument                      | `greet name`  |
-| Optional argument                      | `greet name?` |
-| Array argument with 0-n values         | `greet name*` |
-| Array argument with at least one value | `greet name+` |
+| Description                    | Example       |
+|--------------------------------|---------------|
+| Required argument              | `greet name`  |
+| Optional argument              | `greet name?` |
+| Array argument with 0-n values | `greet name*` |
+| Array argument with 1-n values | `greet name+` |
 
 #### Options
 
 A command can take options:
 
-| Description                    | Example                 |
-|--------------------------------|-------------------------|
-| Simple flag                    | `greet --yell`          |
-| Option with an mandatory value | `greet --iterations=`   |
-| Option with an optional value  | `greet --iterations[=]` |
-| Option that can be used multiple times <br> (the value would be an array) | `greet [--iterations=]*` |
-| Option with a shortcut         | `greet -y|--yell`       |
+| Description                                     | Example                |
+|-------------------------------------------------|------------------------|
+| Simple flag (boolean value)                     | `greet --yell`         |
+| Option with an mandatory value                  | `greet --iterations=`  |
+| Option that can be used 0-n times (array value) | `greet --iterations=*` |
+| Option with a shortcut                          | `greet -y|--yell`      |
 
 Options are always optional (duh). If an option is required, then it should be an argument.
 
