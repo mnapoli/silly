@@ -3,8 +3,8 @@
 namespace Silly\Test\Command;
 
 use Silly\Command\ExpressionParser;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use Silly\Input\InputArgument;
+use Silly\Input\InputOption;
 
 class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 {

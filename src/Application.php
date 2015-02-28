@@ -4,9 +4,9 @@ namespace Silly;
 
 use DI\Container;
 use DI\ContainerBuilder;
+use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -40,6 +40,8 @@ class Application extends SymfonyApplication
      *
      * @param string   $expression Defines the arguments and options of the command.
      * @param callable $callable   Called when the command is called.
+     *
+     * @return Command
      */
     public function command($expression, callable $callable)
     {
@@ -59,6 +61,8 @@ class Application extends SymfonyApplication
         $command = $this->createCommand($expression, $commandFunction);
 
         $this->add($command);
+
+        return $command;
     }
 
     private function createCommand($expression, callable $callable)

@@ -69,6 +69,28 @@ A command can take options:
 
 Options are always optional (duh). If an option is required, then it should be an argument.
 
+#### Default values
+
+```php
+$app->command('greet firstname? lastname?', function () {
+    // ...
+})->defaults([
+    'firstname' => 'John',
+    'lastname'  => 'Doe',
+]);
+```
+
+#### Descriptions
+
+```php
+$app->command('greet name --yell', function () {
+    // ...
+})->descriptions('Greet someone', [
+    'name'   => 'Who do you want to greet?',
+    '--yell' => 'If set, the task will yell in uppercase letters',
+]);
+```
+
 ### Command callable
 
 A command can be [any PHP callable](http://php.net/manual/en/language.types.callable.php):

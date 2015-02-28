@@ -2,8 +2,8 @@
 
 namespace Silly\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use Silly\Input\InputArgument;
+use Silly\Input\InputOption;
 
 /**
  * Parses the expression that defines a command.
