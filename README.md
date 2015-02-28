@@ -74,8 +74,7 @@ Options are always optional (duh). If an option is required, then it should be a
 ```php
 $app->command('greet firstname? lastname?', function () {
     // ...
-});
-$app->defaults('greet', [
+})->defaults([
     'firstname' => 'John',
     'lastname'  => 'Doe',
 ]);
@@ -86,8 +85,7 @@ $app->defaults('greet', [
 ```php
 $app->command('greet name --yell', function () {
     // ...
-});
-$app->descriptions('greet', 'Greet someone', [
+})->descriptions('Greet someone', [
     'name'   => 'Who do you want to greet?',
     '--yell' => 'If set, the task will yell in uppercase letters',
 ]);

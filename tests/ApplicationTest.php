@@ -3,6 +3,8 @@
 namespace Silly\Test;
 
 use Silly\Application;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,35 +23,12 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function allows_to_define_command_descriptions()
+    public function allows_to_define_commands()
     {
-        $this->application->command('greet name --yell', function () {});
-        $this->application->descriptions('greet', 'Greet someone', [
-            'name'   => 'Who?',
-            '--yell' => 'Yell?',
-        ]);
+        $command = $this->application->command('foo', function () {
+            return 1;
+        });
 
-        $command = $this->application->get('greet');
-
-        $this->assertEquals('Greet someone', $command->getDescription());
-        $this->assertEquals('Who?', $command->getDefinition()->getArgument('name')->getDescription());
-        $this->assertEquals('Yell?', $command->getDefinition()->getOption('yell')->getDescription());
-    }
-
-    /**
-     * @test
-     */
-    public function allows_to_define_default_values()
-    {
-        $this->application->command('greet firstname? lastname?', function () {});
-        $this->application->defaults('greet', [
-            'firstname' => 'John',
-            'lastname'  => 'Doe',
-        ]);
-
-        $definition = $this->application->get('greet')->getDefinition();
-
-        $this->assertEquals('John', $definition->getArgument('firstname')->getDefault());
-        $this->assertEquals('Doe', $definition->getArgument('lastname')->getDefault());
+        $this->assertSame($command, $this->application->get('foo'));
     }
 }
