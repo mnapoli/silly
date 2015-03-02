@@ -23,7 +23,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->application->setAutoExit(false);
         $this->application->setCatchExceptions(false);
 
-        $this->command = $this->application->command('greet name? --yell', function () {});
+        $this->command = $this->application->command('greet [name] [--yell]', function () {});
     }
 
     /**

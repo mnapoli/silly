@@ -52,7 +52,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_optional_arguments()
     {
-        $this->assertParsesTo('greet firstname? lastname?', [
+        $this->assertParsesTo('greet [firstname] [lastname]', [
             'name' => 'greet',
             'arguments' => [
                 new InputArgument('firstname', InputArgument::OPTIONAL),
@@ -67,7 +67,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_array_arguments()
     {
-        $this->assertParsesTo('greet names*', [
+        $this->assertParsesTo('greet [names]*', [
             'name' => 'greet',
             'arguments' => [
                 new InputArgument('names', InputArgument::IS_ARRAY),
@@ -81,7 +81,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_array_arguments_with_at_least_one_value()
     {
-        $this->assertParsesTo('greet names+', [
+        $this->assertParsesTo('greet names*', [
             'name' => 'greet',
             'arguments' => [
                 new InputArgument('names', InputArgument::IS_ARRAY | InputArgument::REQUIRED),
@@ -95,7 +95,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_options()
     {
-        $this->assertParsesTo('greet --yell', [
+        $this->assertParsesTo('greet [--yell]', [
             'name' => 'greet',
             'arguments' => [],
             'options' => [
@@ -109,7 +109,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_options_with_mandatory_values()
     {
-        $this->assertParsesTo('greet --iterations=', [
+        $this->assertParsesTo('greet [--iterations=]', [
             'name' => 'greet',
             'arguments' => [],
             'options' => [
@@ -123,7 +123,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_options_with_multiple_values()
     {
-        $this->assertParsesTo('greet --name=*', [
+        $this->assertParsesTo('greet [--name=]*', [
             'name' => 'greet',
             'arguments' => [],
             'options' => [
@@ -137,7 +137,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_parses_options_with_shortcuts()
     {
-        $this->assertParsesTo('greet -y|--yell -it|--iterations= -n|--name=*', [
+        $this->assertParsesTo('greet [-y|--yell] [-it|--iterations=] [-n|--name=]*', [
             'name' => 'greet',
             'arguments' => [],
             'options' => [
@@ -146,6 +146,17 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
                 new InputOption('name', 'n', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY),
             ],
         ]);
+    }
+
+    /**
+     * @test
+     * @expectedException \Silly\Command\InvalidCommandExpression
+     * @expectedExceptionMessage An option must be enclosed by brackets: [--option]
+     */
+    public function it_provides_an_error_message_on_options_missing_brackets()
+    {
+        $parser = new ExpressionParser();
+        $parser->parse('greet --yell');
     }
 
     public function assertParsesTo($expression, $expected)

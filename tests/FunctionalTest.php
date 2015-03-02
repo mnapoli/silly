@@ -48,7 +48,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_run_a_command_with_an_optional_argument()
     {
-        $this->application->command('greet name?', function ($name, Out $output) {
+        $this->application->command('greet [name]', function ($name, Out $output) {
             $output->write('hello ' . $name);
         });
         $this->assertOutputIs('greet', 'hello ');
@@ -60,7 +60,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_run_a_command_with_a_flag()
     {
-        $this->application->command('greet -y|--yell', function ($yell, Out $output) {
+        $this->application->command('greet [-y|--yell]', function ($yell, Out $output) {
             $output->write(var_export($yell, true));
         });
         $this->assertOutputIs('greet', 'false');
@@ -73,7 +73,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_run_a_command_with_an_option()
     {
-        $this->application->command('greet -i|--iterations=', function ($iterations, Out $output) {
+        $this->application->command('greet [-i|--iterations=]', function ($iterations, Out $output) {
             $output->write($iterations === null ? 'null' : $iterations);
         });
         $this->assertOutputIs('greet', 'null');
@@ -86,7 +86,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_run_a_command_with_multiple_options()
     {
-        $this->application->command('greet -d|--dir=*', function ($dir, Out $output) {
+        $this->application->command('greet [-d|--dir=]*', function ($dir, Out $output) {
             $output->write('[' . implode(', ', $dir) . ']');
         });
         $this->assertOutputIs('greet', '[]');

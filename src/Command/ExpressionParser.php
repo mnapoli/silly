@@ -28,6 +28,10 @@ class ExpressionParser
         $options = [];
 
         foreach ($tokens as $token) {
+            if ($this->startsWith($token, '--')) {
+                throw new InvalidCommandExpression('An option must be enclosed by brackets: [--option]');
+            }
+
             if ($this->isOption($token)) {
                 $options[] = $this->parseOption($token);
             } else {
@@ -44,20 +48,20 @@ class ExpressionParser
 
     private function isOption($token)
     {
-        return $this->startsWith($token, '-') || $this->startsWith($token, '[-');
+        return $this->startsWith($token, '[-');
     }
 
     private function parseArgument($token)
     {
-        if ($this->endsWith($token, '?')) {
-            $mode = InputArgument::OPTIONAL;
-            $name = rtrim($token, '?');
-        } elseif ($this->endsWith($token, '*')) {
+        if ($this->endsWith($token, ']*')) {
             $mode = InputArgument::IS_ARRAY;
-            $name = rtrim($token, '*');
-        } elseif ($this->endsWith($token, '+')) {
+            $name = trim($token, '[]*');
+        } elseif ($this->endsWith($token, '*')) {
             $mode = InputArgument::IS_ARRAY | InputArgument::REQUIRED;
-            $name = rtrim($token, '+');
+            $name = trim($token, '*');
+        } elseif ($this->startsWith($token, '[')) {
+            $mode = InputArgument::OPTIONAL;
+            $name = trim($token, '[]');
         } else {
             $mode = InputArgument::REQUIRED;
             $name = $token;
@@ -68,7 +72,9 @@ class ExpressionParser
 
     private function parseOption($token)
     {
-        // Shortcut `-y|--yell`
+        $token = trim($token, '[]');
+
+        // Shortcut [-y|--yell]
         if (strpos($token, '|') !== false) {
             list($shortcut, $token) = explode('|', $token, 2);
             $shortcut = ltrim($shortcut, '-');
@@ -78,9 +84,9 @@ class ExpressionParser
 
         $name = ltrim($token, '-');
 
-        if ($this->endsWith($token, '=*')) {
+        if ($this->endsWith($token, '=]*')) {
             $mode = InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY;
-            $name = substr($name, 0, -2);
+            $name = substr($name, 0, -3);
         } elseif ($this->endsWith($token, '=')) {
             $mode = InputOption::VALUE_REQUIRED;
             $name = rtrim($name, '=');
