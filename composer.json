@@ -17,14 +17,9 @@
     "require": {
         "php": ">=5.5",
         "symfony/console": "~2.6",
-        "mnapoli/php-di": "~4.4"
+        "mnapoli/invoker": "~0.1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.5"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.2.x-dev"
-        }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Silly;
 
-use DI\Container;
-use DI\ContainerBuilder;
+use Invoker\Invoker;
+use Invoker\InvokerInterface;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
@@ -23,14 +23,14 @@ class Application extends SymfonyApplication
     private $expressionParser;
 
     /**
-     * @var Container
+     * @var InvokerInterface
      */
-    private $container;
+    private $invoker;
 
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
         $this->expressionParser = new ExpressionParser();
-        $this->container = ContainerBuilder::buildDevContainer();
+        $this->invoker = new Invoker();
 
         parent::__construct($name, $version);
     }
@@ -55,7 +55,7 @@ class Application extends SymfonyApplication
                 $input->getOptions()
             );
 
-            $this->container->call($callable, $parameters);
+            $this->invoker->call($callable, $parameters);
         };
 
         $command = $this->createCommand($expression, $commandFunction);
