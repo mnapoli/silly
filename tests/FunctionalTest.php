@@ -5,6 +5,7 @@ namespace Silly\Test;
 use Silly\Application;
 use Silly\Test\Fixture\SpyOutput;
 use Silly\Test\Mock\ArrayContainer;
+use stdClass;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface as Out;
 
@@ -99,7 +100,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_resolve_a_callable_string_from_a_container()
+    public function it_can_resolve_a_callable_string_from_a_container()
     {
         $container = new ArrayContainer([
             'command.greet' => function (Out $output) {
@@ -116,7 +117,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_resolve_a_callable_array_from_a_container()
+    public function it_can_resolve_a_callable_array_from_a_container()
     {
         $container = new ArrayContainer([
             // Calls $this->foo()
@@ -127,6 +128,106 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $this->application->command('greet', 'command.greet');
 
         $this->assertOutputIs('greet', 'hello');
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_inject_using_type_hints()
+    {
+        $stdClass = new stdClass();
+        $stdClass->foo = 'hello';
+        $container = new ArrayContainer([
+            'stdClass' => $stdClass,
+        ]);
+        $this->application->useContainer($container, true);
+
+        $this->application->command('greet', function (Out $output, stdClass $param) {
+            $output->write($param->foo);
+        });
+
+        $this->assertOutputIs('greet', 'hello');
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_inject_using_parameter_names()
+    {
+        $stdClass = new stdClass();
+        $stdClass->foo = 'hello';
+        $container = new ArrayContainer([
+            'param' => $stdClass,
+        ]);
+        $this->application->useContainer($container, false, true);
+
+        $this->application->command('greet', function (Out $output, $param) {
+            $output->write($param->foo);
+        });
+
+        $this->assertOutputIs('greet', 'hello');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_command_parameters_in_priority_over_dependency_injection()
+    {
+        $container = new ArrayContainer([
+            'param' => 'bob',
+        ]);
+        $this->application->useContainer($container, false, true);
+
+        $this->application->command('greet param', function (Out $output, $param) {
+            $output->write($param);
+        });
+
+        $this->assertOutputIs('greet john', 'john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_using_type_hint_in_priority_if_both_are_configured()
+    {
+        $stdClass1 = new stdClass();
+        $stdClass1->foo = 'hello';
+        $stdClass2 = new stdClass();
+        $stdClass2->foo = 'nope!';
+        $container = new ArrayContainer([
+            'stdClass' => $stdClass1,
+            'param'    => $stdClass2,
+        ]);
+        // Configured to inject both with type-hints and parameter names
+        $this->application->useContainer($container, true, true);
+
+        $this->application->command('greet', function (Out $output, stdClass $param) {
+            $output->write($param->foo);
+        });
+
+        $this->assertOutputIs('greet', 'hello');
+    }
+
+    /**
+     * @test
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Impossible to call the 'greet' command: Unable to invoke the callable because no value was given for parameter 1 ($foo)
+     */
+    public function it_should_throw_if_a_parameter_cannot_be_resolved()
+    {
+        $this->application->command('greet', function (stdClass $foo) {});
+        $this->assertOutputIs('greet', '');
+    }
+
+    /**
+     * @test
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Impossible to call the 'greet' command: 'foo' is not a callable
+     */
+    public function it_should_throw_if_the_command_is_not_a_callable()
+    {
+        $this->application->command('greet', 'foo');
+        $this->assertOutputIs('greet', '');
     }
 
     private function assertOutputIs($command, $expected)

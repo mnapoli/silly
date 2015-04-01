@@ -3,8 +3,13 @@
 namespace Silly;
 
 use Interop\Container\ContainerInterface;
+use Invoker\Exception\InvocationException;
 use Invoker\Invoker;
 use Invoker\InvokerInterface;
+use Invoker\ParameterResolver\AssociativeArrayResolver;
+use Invoker\ParameterResolver\Container\ParameterNameContainerResolver;
+use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
+use Invoker\ParameterResolver\ResolverChain;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
@@ -63,7 +68,15 @@ class Application extends SymfonyApplication
                 $input->getOptions()
             );
 
-            $this->invoker->call($callable, $parameters);
+            try {
+                $this->invoker->call($callable, $parameters);
+            } catch (InvocationException $e) {
+                throw new \RuntimeException(sprintf(
+                    "Impossible to call the '%s' command: %s",
+                    $input->getFirstArgument(),
+                    $e->getMessage()
+                ), 0, $e);
+            }
         };
 
         $command = $this->createCommand($expression, $commandFunction);
@@ -73,10 +86,52 @@ class Application extends SymfonyApplication
         return $command;
     }
 
-    public function useContainer(ContainerInterface $container)
-    {
+    /**
+     * Set up the application to use a container to resolve callables.
+     *
+     * Only commands that are *not* PHP callables will be fetched from the container.
+     * Commands that are PHP callables are not affected (which is what we want).
+     *
+     * *Optionally*, you can also enable dependency injection in the callable parameters:
+     *
+     *     $application->command('greet', function (Psr\Log\LoggerInterface $logger) {
+     *         $logger->info('I am greeting');
+     *     });
+     *
+     * Set `$injectByTypeHint` to `true` to make Silly fetch container entries by their
+     * type-hint, i.e. call `$container->get('Psr\Log\LoggerInterface')`.
+     *
+     * Set `$injectByParameterName` to `true` to make Silly fetch container entries by
+     * the parameter name, i.e. call `$container->get('logger')`.
+     *
+     * If you set both to `true`, it will first look using the type-hint, then using
+     * the parameter name.
+     *
+     * In case of conflict with a command parameters, the command parameter is injected
+     * in priority over dependency injection.
+     *
+     * @param ContainerInterface $container Container implementing container-interop
+     * @param bool               $injectByTypeHint
+     * @param bool               $injectByParameterName
+     */
+    public function useContainer(
+        ContainerInterface $container,
+        $injectByTypeHint = false,
+        $injectByParameterName = false
+    ) {
         $this->container = $container;
-        $this->invoker = new Invoker(null, $container);
+
+        $resolvers = [
+            new AssociativeArrayResolver,
+        ];
+        if ($injectByTypeHint) {
+            $resolvers[] = new TypeHintContainerResolver($container);
+        }
+        if ($injectByParameterName) {
+            $resolvers[] = new ParameterNameContainerResolver($container);
+        }
+
+        $this->invoker = new Invoker(new ResolverChain($resolvers), $container);
     }
 
     /**
