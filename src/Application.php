@@ -2,6 +2,7 @@
 
 namespace Silly;
 
+use Interop\Container\ContainerInterface;
 use Invoker\Invoker;
 use Invoker\InvokerInterface;
 use Silly\Command\Command;
@@ -27,6 +28,11 @@ class Application extends SymfonyApplication
      */
     private $invoker;
 
+    /**
+     * @var ContainerInterface|null
+     */
+    private $container;
+
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
         $this->expressionParser = new ExpressionParser();
@@ -38,12 +44,14 @@ class Application extends SymfonyApplication
     /**
      * Define a CLI command using a string expression and a callable.
      *
-     * @param string   $expression Defines the arguments and options of the command.
-     * @param callable $callable   Called when the command is called.
+     * @param string                $expression Defines the arguments and options of the command.
+     * @param callable|string|array $callable   Called when the command is called.
+     *                                          When using a container, this can be a "pseudo-callable"
+     *                                          i.e. the name of the container entry to invoke.
      *
      * @return Command
      */
-    public function command($expression, callable $callable)
+    public function command($expression, $callable)
     {
         $commandFunction = function (InputInterface $input, OutputInterface $output) use ($callable) {
             $parameters = array_merge(
@@ -63,6 +71,35 @@ class Application extends SymfonyApplication
         $this->add($command);
 
         return $command;
+    }
+
+    public function useContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
+        $this->invoker = new Invoker(null, $container);
+    }
+
+    /**
+     * Returns the container that has been configured, or null.
+     *
+     * @return ContainerInterface|null
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @return InvokerInterface
+     */
+    public function getInvoker()
+    {
+        return $this->invoker;
+    }
+
+    public function setInvoker(InvokerInterface $invoker)
+    {
+        $this->invoker = $invoker;
     }
 
     private function createCommand($expression, callable $callable)

@@ -2,9 +2,9 @@
 
 namespace Silly\Test;
 
+use EasyMock\EasyMock;
+use Invoker\InvokerInterface;
 use Silly\Application;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\NullOutput;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,5 +30,18 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         });
 
         $this->assertSame($command, $this->application->get('foo'));
+    }
+
+    /**
+     * @test
+     */
+    public function allows_to_set_an_invoker()
+    {
+        /** @var InvokerInterface $invoker */
+        $invoker = EasyMock::mock(InvokerInterface::class);
+
+        $this->application->setInvoker($invoker);
+
+        $this->assertSame($invoker, $this->application->getInvoker());
     }
 }

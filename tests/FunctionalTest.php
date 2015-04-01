@@ -4,6 +4,7 @@ namespace Silly\Test;
 
 use Silly\Application;
 use Silly\Test\Fixture\SpyOutput;
+use Silly\Test\Mock\ArrayContainer;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface as Out;
 
@@ -95,10 +96,52 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $this->assertOutputIs('greet --dir=foo --dir=bar', '[foo, bar]');
     }
 
+    /**
+     * @test
+     */
+    public function it_should_resolve_a_callable_string_from_a_container()
+    {
+        $container = new ArrayContainer([
+            'command.greet' => function (Out $output) {
+                $output->write('hello');
+            }
+        ]);
+        $this->application->useContainer($container);
+
+        $this->application->command('greet', 'command.greet');
+
+        $this->assertOutputIs('greet', 'hello');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_resolve_a_callable_array_from_a_container()
+    {
+        $container = new ArrayContainer([
+            // Calls $this->foo()
+            'command.greet' => [$this, 'foo']
+        ]);
+        $this->application->useContainer($container);
+
+        $this->application->command('greet', 'command.greet');
+
+        $this->assertOutputIs('greet', 'hello');
+    }
+
     private function assertOutputIs($command, $expected)
     {
         $output = new SpyOutput();
         $this->application->run(new StringInput($command), $output);
         $this->assertEquals($expected, $output->output);
+    }
+
+    /**
+     * Fixture method.
+     * @param Out $output
+     */
+    public function foo(Out $output)
+    {
+        $output->write('hello');
     }
 }
