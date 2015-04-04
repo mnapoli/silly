@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Silly</title>
+
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/highlight.dark.css">
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-inverse navbar-fixed-top">
+
+            <a class="navbar-brand" href="http://mnapoli.fr/silly/">
+                Silly
+                <small class="hidden-xs hidden-sm">
+                    Silly CLI micro-framework based on Symfony Console.
+                </small>
+            </a>
+
+            <a href="https://github.com/mnapoli/silly">
+                <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+            </a>
+
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                <nav id="sidebar" class="col-md-3 col-lg-3" role="navigation">
+
+                    <ul class="nav nav-pills nav-stacked">
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/">
+                                    Introduction
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/command-definition.html">
+                                    Command definition
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/command-callables.html">
+                                    Command callables
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/helpers.html">
+                                    Console helpers
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/container.html">
+                                    Dependency injection
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/contributing.html">
+                                    Contributing
+                                </a>
+                            </li>
+                                            </ul>
+
+                </nav>
+
+                <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
+                    <h1>Command definition</h1>
+<p>Commands are defined using a string expression.</p>
+<p>The expression must start with the command name, optionally using <code>:</code> as a namespace separator, for example:</p>
+<ul>
+<li><code>greet</code></li>
+<li><code>demo:greet</code></li>
+</ul>
+<h2>Arguments</h2>
+<p>A command can take arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Required argument</td>
+<td><code>greet name</code></td>
+</tr>
+<tr>
+<td>Optional argument</td>
+<td><code>greet [name]</code></td>
+</tr>
+<tr>
+<td>Array argument with 0-n values</td>
+<td><code>greet [name]*</code></td>
+</tr>
+<tr>
+<td>Array argument with 1-n values</td>
+<td><code>greet name*</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Options</h2>
+<p>A command can take options:</p>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple flag (boolean value)</td>
+<td><code>greet [--yell]</code></td>
+</tr>
+<tr>
+<td>Option with an mandatory value</td>
+<td><code>greet [--iterations=]</code></td>
+</tr>
+<tr>
+<td>Option that can be used 0-n times (array value)</td>
+<td><code>greet [--iterations=]*</code></td>
+</tr>
+<tr>
+<td>Option with a shortcut</td>
+<td><code>greet [-y|--yell]</code></td>
+</tr>
+</tbody>
+</table>
+<p>Options are always optional (duh). If an option is required, then it should be an argument.</p>
+<h2>Default values</h2>
+<pre><code class="language-php">$app-&gt;command('greet [firstname] [lastname]', function () {
+    // ...
+})-&gt;defaults([
+    'firstname' =&gt; 'John',
+    'lastname'  =&gt; 'Doe',
+]);</code></pre>
+<h2>Descriptions</h2>
+<pre><code class="language-php">$app-&gt;command('greet name [--yell]', function () {
+    // ...
+})-&gt;descriptions('Greet someone', [
+    'name'   =&gt; 'Who do you want to greet?',
+    '--yell' =&gt; 'If set, the task will yell in uppercase letters',
+]);</code></pre>
+                </section>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="container-fluid">
+                <p class="text-muted">
+                    website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="http://yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>

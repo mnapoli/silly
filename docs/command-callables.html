@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Silly</title>
+
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/highlight.dark.css">
+        <link rel="stylesheet" href="http://mnapoli.fr/silly/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-inverse navbar-fixed-top">
+
+            <a class="navbar-brand" href="http://mnapoli.fr/silly/">
+                Silly
+                <small class="hidden-xs hidden-sm">
+                    Silly CLI micro-framework based on Symfony Console.
+                </small>
+            </a>
+
+            <a href="https://github.com/mnapoli/silly">
+                <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+            </a>
+
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                <nav id="sidebar" class="col-md-3 col-lg-3" role="navigation">
+
+                    <ul class="nav nav-pills nav-stacked">
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/">
+                                    Introduction
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/command-definition.html">
+                                    Command definition
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/command-callables.html">
+                                    Command callables
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/helpers.html">
+                                    Console helpers
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/container.html">
+                                    Dependency injection
+                                </a>
+                            </li>
+                                                    <li class="">
+                                <a href="http://mnapoli.fr/silly/contributing.html">
+                                    Contributing
+                                </a>
+                            </li>
+                                            </ul>
+
+                </nav>
+
+                <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
+                    <h1>Command callables</h1>
+<p>A command can be <a href="http://php.net/manual/en/language.types.callable.php">any PHP callable</a>:</p>
+<pre><code class="language-php">// Closure
+$app-&gt;command('foo', function () {
+    // ...
+});
+
+// An object implementing __invoke()
+$app-&gt;command('foo', new InvokableObject());
+
+// An object method
+$app-&gt;command('foo', [$object, 'method']);
+
+// A static class method
+$app-&gt;command('foo', ['MyClass', 'method']);
+
+// A function
+$app-&gt;command('foo', 'someFunction');</code></pre>
+<h2>Parameters</h2>
+<p>The callable can take as parameters the arguments and options defined in the expression:</p>
+<pre><code class="language-php">$app-&gt;command('greet name [--yell]', function ($name, $yell) {
+    // ...
+});</code></pre>
+<p>When running <code>$ bin/console greet john --yell</code>:</p>
+<ul>
+<li><code>$name</code> will be <code>'john'</code></li>
+<li><code>$yell</code> will be <code>true</code></li>
+</ul>
+<h3>Input and output</h3>
+<p>You can also ask for the <code>$input</code> and <code>$output</code> parameters to get the traditional Symfony <code>InputInterface</code> and <code>OutputInterface</code> objects (the type-hint is optional):</p>
+<pre><code class="language-php">$app-&gt;command(
+    'greet name [--yell]',
+    function (InputInterface $input, OutputInterface $output) {
+        $name = $input-&gt;getArgument('name');
+        $yell = $input-&gt;getOption('yell');
+
+        // ...
+    }
+);</code></pre>
+<p>Finally, you can mix all that. Parameters are detected by their name.</p>
+<pre><code class="language-php">$app-&gt;command(
+    'greet name [--yell]',
+    function ($name, InputInterface $input, OutputInterface $output) {
+        // ...
+    }
+);</code></pre>
+<h3>Dependency injection</h3>
+<p>It is also possible to set up dependency injection through the callables parameters. To learn more about that, read the <a href="container.html">Dependency injection</a> documentation.</p>
+                </section>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="container-fluid">
+                <p class="text-muted">
+                    website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="http://yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>
