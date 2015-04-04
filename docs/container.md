@@ -10,6 +10,8 @@ Silly uses the [container-interop standard](https://github.com/container-interop
 $app->useContainer($container);
 ```
 
+You can retrieve the container using `$app->getContainer()`.
+
 ## Callables in the container
 
 By registering a container with `$app->useContainer()`, you can now store your callables inside your containers and Silly with be able to resolve them:

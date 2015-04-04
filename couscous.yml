@@ -20,6 +20,9 @@ menu:
         container:
             text: Dependency injection
             relativeUrl: docs/container.html
+        php-di:
+            text: The PHP-DI edition
+            relativeUrl: docs/php-di.html
         contributing:
             text: Contributing
             relativeUrl: contributing.html

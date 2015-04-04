@@ -51,6 +51,7 @@ HELLO JOHN
 - [Command callables](docs/command-callables.md)
 - [Console helpers](docs/helpers.md)
 - [Dependency injection](docs/container.md)
+- [The PHP-DI edition](docs/php-di.md)
 
 ## Do more
 
