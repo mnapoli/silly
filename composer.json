@@ -17,9 +17,11 @@
     "require": {
         "php": ">=5.5",
         "symfony/console": "~2.6",
-        "mnapoli/invoker": "~0.2.0"
+        "mnapoli/invoker": "~0.2.1",
+        "container-interop/container-interop": "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.5"
+        "phpunit/phpunit": "~4.5",
+        "mnapoli/phpunit-easymock": "~0.1.0"
     }
 }
