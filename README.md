@@ -34,6 +34,15 @@ $app->command('greet [name] [--yell]', function ($name, $yell, OutputInterface $
 $app->run();
 ```
 
+Running the application is the same as running any other Symfony Console application:
+
+```bash
+$ php application.php greet
+Hello
+$ php application.php greet john --yell
+HELLO JOHN
+```
+
 `Silly\Application` extends `Symfony\Console\Application` and can be used wherever Symfony's Application can.
 
 ## Documentation
