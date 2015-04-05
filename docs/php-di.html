@@ -74,84 +74,56 @@
                 </nav>
 
                 <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
-                    <h1>Command definition</h1>
-<p>Commands are defined using a string expression.</p>
-<p>The expression must start with the command name, optionally using <code>:</code> as a namespace separator, for example:</p>
+                    <h1>The PHP-DI edition</h1>
+<p>As explained in the <a href="container.html">dependency injection</a> documentation, Silly can work with any dependency injection container.</p>
+<p>However in order to provide an easy way to get started we provide a &quot;PHP-DI edition&quot; that is already configured with the <a href="http://php-di.org">PHP-DI container</a>.</p>
+<h2>Installation</h2>
+<pre><code class="language-bash">$ composer require mnapoli/silly-php-di</code></pre>
+<h2>Usage</h2>
+<p>Thanks to PHP-DI's autowiring capabilities you can define your commands in classes:</p>
+<pre><code class="language-php">class MyCommand
+{
+    public function execute($name, OutputInterface $output)
+    {
+        if ($name) {
+            $text = 'Hello, '.$name;
+        } else {
+            $text = 'Hello';
+        }
+
+        $output-&gt;writeln($text);
+    }
+}
+
+$app = new Silly\Edition\PhpDi\Application();
+
+$app-&gt;command('greet [name]', 'MyCommand');
+
+$app-&gt;run();</code></pre>
+<p>PHP-DI will automatically create a new instance of <code>MyCommand</code> when the <code>greet</code> command is called.</p>
+<h2>Dependency injection in parameters</h2>
+<p>You can also use dependency injection in parameters:</p>
+<pre><code class="language-php">use Psr\Logger\LoggerInterface;
+
+// ...
+
+$container = $app-&gt;getContainer();
+
+$container-&gt;set('dbHost', 'localhost');
+// Monolog's configuration is voluntarily skipped
+$container-&gt;set(LoggerInterface::class, DI\object('Monolog\Logger'));
+
+$app-&gt;command('greet [name]', function ($name, $dbHost, LoggerInterface $logger) {
+    // ...
+});
+
+$app-&gt;run();</code></pre>
+<p>Dependency injection in parameters follows the precedence rules explained in the <a href="container.html">dependency injection</a> documentation:</p>
 <ul>
-<li><code>greet</code></li>
-<li><code>demo:greet</code></li>
+<li>command parameters are matched in priority using the parameter names (<code>$name</code>)</li>
+<li>then container entries are matched using the callable type-hint (<code>Psr\Logger\LoggerInterface</code>)</li>
+<li>finally container entries are matched using the parameter names (<code>$dbHost</code>)</li>
 </ul>
-<h2>Arguments</h2>
-<p>A command can take arguments:</p>
-<table>
-<thead>
-<tr>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Required argument</td>
-<td><code>greet name</code></td>
-</tr>
-<tr>
-<td>Optional argument</td>
-<td><code>greet [name]</code></td>
-</tr>
-<tr>
-<td>Array argument with 0-n values</td>
-<td><code>greet [name]*</code></td>
-</tr>
-<tr>
-<td>Array argument with 1-n values</td>
-<td><code>greet name*</code></td>
-</tr>
-</tbody>
-</table>
-<h2>Options</h2>
-<p>A command can take options:</p>
-<table>
-<thead>
-<tr>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Simple flag (boolean value)</td>
-<td><code>greet [--yell]</code></td>
-</tr>
-<tr>
-<td>Option with an mandatory value</td>
-<td><code>greet [--iterations=]</code></td>
-</tr>
-<tr>
-<td>Option that can be used 0-n times (array value)</td>
-<td><code>greet [--iterations=]*</code></td>
-</tr>
-<tr>
-<td>Option with a shortcut</td>
-<td><code>greet [-y|--yell]</code></td>
-</tr>
-</tbody>
-</table>
-<p>Options are always optional (duh). If an option is required, then it should be an argument.</p>
-<h2>Default values</h2>
-<pre><code class="language-php">$app-&gt;command('greet [firstname] [lastname]', function () {
-    // ...
-})-&gt;defaults([
-    'firstname' =&gt; 'John',
-    'lastname'  =&gt; 'Doe',
-]);</code></pre>
-<h2>Descriptions</h2>
-<pre><code class="language-php">$app-&gt;command('greet name [--yell]', function () {
-    // ...
-})-&gt;descriptions('Greet someone', [
-    'name'   =&gt; 'Who do you want to greet?',
-    '--yell' =&gt; 'If set, the task will yell in uppercase letters',
-]);</code></pre>
                 </section>
 
             </div>

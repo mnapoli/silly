@@ -60,6 +60,11 @@
                                 </a>
                             </li>
                                                     <li class="">
+                                <a href="http://mnapoli.fr/silly/docs/php-di.html">
+                                    The PHP-DI edition
+                                </a>
+                            </li>
+                                                    <li class="">
                                 <a href="http://mnapoli.fr/silly/contributing.html">
                                     Contributing
                                 </a>
@@ -74,6 +79,7 @@
 <h2>Choose your container</h2>
 <p>Silly uses the <a href="https://github.com/container-interop/container-interop">container-interop standard</a> in order to be compatible with any dependency injection container. The idea is simple: you can set up Silly to use the implementation you prefer.</p>
 <pre><code class="language-php">$app-&gt;useContainer($container);</code></pre>
+<p>You can retrieve the container using <code>$app-&gt;getContainer()</code>.</p>
 <h2>Callables in the container</h2>
 <p>By registering a container with <code>$app-&gt;useContainer()</code>, you can now store your callables inside your containers and Silly with be able to resolve them:</p>
 <pre><code class="language-php">$app-&gt;command('greet [name]', 'the-service-id');</code></pre>
