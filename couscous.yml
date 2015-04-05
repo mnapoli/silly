@@ -23,6 +23,9 @@ menu:
         php-di:
             text: The PHP-DI edition
             relativeUrl: docs/php-di.html
+        pimple:
+            text: The Pimple edition
+            relativeUrl: docs/pimple.html
         contributing:
             text: Contributing
             relativeUrl: contributing.html

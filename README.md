@@ -52,6 +52,7 @@ HELLO JOHN
 - [Console helpers](docs/helpers.md)
 - [Dependency injection](docs/container.md)
 - [The PHP-DI edition](docs/php-di.md)
+- [The Pimple edition](docs/pimple.md)
 
 ## Do more
 
