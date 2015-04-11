@@ -31,6 +31,8 @@ $app->command('greet name [--yell]', function ($name, $yell) {
 });
 ```
 
+The order of parameters doesn't matter as they are always matched by name.
+
 When running `$ bin/console greet john --yell`:
 
 - `$name` will be `'john'`
