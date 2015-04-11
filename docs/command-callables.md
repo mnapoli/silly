@@ -54,7 +54,7 @@ $app->command(
 );
 ```
 
-Finally, you can mix all that. Parameters are detected by their name.
+Finally, you can mix all that (remember the order of parameters doesn't matter):
 
 ```php
 $app->command(
