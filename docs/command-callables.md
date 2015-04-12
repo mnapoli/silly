@@ -67,4 +67,4 @@ $app->command(
 
 ### Dependency injection
 
-It is also possible to set up dependency injection through the callables parameters. To learn more about that, read the [Dependency injection](container.md) documentation.
+It is also possible to set up dependency injection through the callables parameters. To learn more about that, read the [Dependency injection](dependency-injection.md) documentation.

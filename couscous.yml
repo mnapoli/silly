@@ -19,7 +19,7 @@ menu:
             relativeUrl: docs/helpers.html
         container:
             text: Dependency injection
-            relativeUrl: docs/container.html
+            relativeUrl: docs/dependency-injection.html
         php-di:
             text: The PHP-DI edition
             relativeUrl: docs/php-di.html

@@ -50,7 +50,7 @@ HELLO JOHN
 - [Command definition](docs/command-definition.md)
 - [Command callables](docs/command-callables.md)
 - [Console helpers](docs/helpers.md)
-- [Dependency injection](docs/container.md)
+- [Dependency injection](docs/dependency-injection.md)
 - [The PHP-DI edition](docs/php-di.md)
 - [The Pimple edition](docs/pimple.md)
 
