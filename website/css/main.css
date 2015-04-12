@@ -3,7 +3,7 @@ html {
     min-height: 100%;
 }
 body {
-    font-size: 17px;
+    font-size: 14px;
 }
 
 @media (min-width: 1200px) {
@@ -13,7 +13,7 @@ body {
 }
 
 main {
-    margin-top: 90px;
+   margin-top: 90px;
 }
 
 section {
@@ -22,12 +22,19 @@ section {
 
 /* Leading paragraph */
 section p:first-child {
-    font-size: 24px;
+    font-size: 18px;
     margin-bottom: 23px;
     font-weight: 300;
     line-height: 1.4;
     margin-top: 36px;
 }
+
+
+p{
+    font-size: 90%;
+}
+
+
 section h1:first-child {
     padding-bottom: 14px;
     margin: 26px 0;
@@ -55,15 +62,25 @@ footer p {
 }
 
 h1 {
-    font-size: 46px;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.4;
 }
 h2 {
-    font-size: 35px;
+    font-size: 22px;
     margin-top: 28px;
+    color: #666666;
+
+    font-weight: 300;
+    line-height: 1.4;
 }
+
 h3 {
-    font-size: 23px;
-    font-weight: bold;
+    font-size: 18px;
+    color: #666666;
+
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 li {
@@ -103,6 +120,7 @@ header.navbar {
     height: auto;
     line-height: 40px;
     margin-left: 20px;
+
 }
 .navbar .navbar-brand small {
     font-size: 18px;
@@ -114,6 +132,7 @@ header.navbar {
     #sidebar {
         position:fixed;
         margin-top: 30px;
+        font-size:80%;
     }
 }
 @media (max-width: 960px) {
@@ -142,4 +161,71 @@ pre {
 }
 pre code {
     border: none;
+}
+
+.navbar-inverse {
+    background-color: #65d1d8;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+
+}
+
+.nav>li>a {
+    color:  #1dbdc7;
+    text-transform: uppercase;
+
+}
+
+.hljs {
+
+    background: #687273;
+}
+
+.hljs-string {
+color: #21e2ef;
+
+}
+
+pre{
+   width:80%;
+    Margin-left:10%;
+    border: solid 4px #d2d7d7
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+    text-decoration: none;
+    background-color: white;
+    border-bottom: solid 2px
+
+}
+
+.title-text{
+border: solid;
+padding: 10px;
+margin: 20px;
+}
+
+code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #148f97;
+    background-color: #f9f2f4;
+    border-radius: 3px;
+}
+
+a {
+    color: #148f97;
+
+}
+
+a:hover, a:focus {
+    color: #0c646a;
+
+}
+
+.hljs-comment{
+    color: white;
+
 }
