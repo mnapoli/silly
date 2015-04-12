@@ -1,8 +1,5 @@
 baseUrl: http://mnapoli.fr/silly
 
-title: Silly
-subTitle: Silly CLI micro-framework based on Symfony Console.
-
 menu:
     items:
         home:

@@ -13,7 +13,7 @@ body {
 }
 
 main {
-   margin-top: 70px;
+    margin-top: 90px;
 }
 
 section {
@@ -109,8 +109,9 @@ header.navbar {
     font-size: 28px;
     height: auto;
     line-height: 40px;
-    margin-left: 20px;
-    padding: 10px;
+    border: solid 1px;
+    margin: 20px;
+    padding: 5px 20px;
 }
 .navbar .navbar-brand small {
     font-size: 18px;
@@ -178,10 +179,10 @@ code {
     border: solid 1px #e5e5e5;
 }
 .hljs {
-    background: #687273;
+    background: #5B6566;
 }
 .hljs-string {
-    color: #e69411;
+    color: #D8B783;
 }
 .hljs-comment{
     color: #ABABAB;
