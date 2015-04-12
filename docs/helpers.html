@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Silly</title>
+        <title></title>
 
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
             <a class="navbar-brand" href="http://mnapoli.fr/silly/">
                 Silly
                 <small class="hidden-xs hidden-sm">
-                    Silly CLI micro-framework based on Symfony Console.
+                    CLI micro-framework based on Symfony Console
                 </small>
             </a>
 
@@ -31,7 +31,7 @@
         <main class="container-fluid">
             <div class="row">
 
-                <nav id="sidebar" class="col-md-3 col-lg-3" role="navigation">
+                <nav id="sidebar" class="col-md-3 col-lg-2" role="navigation">
 
                     <ul class="nav nav-pills nav-stacked">
                                                     <li class="">
@@ -49,13 +49,13 @@
                                     Command callables
                                 </a>
                             </li>
-                                                    <li class="">
+                                                    <li class="active">
                                 <a href="http://mnapoli.fr/silly/docs/helpers.html">
                                     Console helpers
                                 </a>
                             </li>
                                                     <li class="">
-                                <a href="http://mnapoli.fr/silly/docs/container.html">
+                                <a href="http://mnapoli.fr/silly/docs/dependency-injection.html">
                                     Dependency injection
                                 </a>
                             </li>
@@ -78,8 +78,8 @@
 
                 </nav>
 
-                <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
-                    <h1>Console helpers</h1>
+                <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
+                    <h1 id="console-helpers">Console helpers</h1>
 <p>You can use <a href="http://symfony.com/doc/current/components/console/helpers/index.html">Symfony's console helpers</a> by getting them from the application:</p>
 <pre><code class="language-php">$app = new Silly\Application();
 

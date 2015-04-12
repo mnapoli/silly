@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Silly</title>
+        <title></title>
 
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
             <a class="navbar-brand" href="http://mnapoli.fr/silly/">
                 Silly
                 <small class="hidden-xs hidden-sm">
-                    Silly CLI micro-framework based on Symfony Console.
+                    CLI micro-framework based on Symfony Console
                 </small>
             </a>
 
@@ -31,7 +31,7 @@
         <main class="container-fluid">
             <div class="row">
 
-                <nav id="sidebar" class="col-md-3 col-lg-3" role="navigation">
+                <nav id="sidebar" class="col-md-3 col-lg-2" role="navigation">
 
                     <ul class="nav nav-pills nav-stacked">
                                                     <li class="">
@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                                                     <li class="">
-                                <a href="http://mnapoli.fr/silly/docs/container.html">
+                                <a href="http://mnapoli.fr/silly/docs/dependency-injection.html">
                                     Dependency injection
                                 </a>
                             </li>
@@ -64,7 +64,7 @@
                                     The PHP-DI edition
                                 </a>
                             </li>
-                                                    <li class="">
+                                                    <li class="active">
                                 <a href="http://mnapoli.fr/silly/docs/pimple.html">
                                     The Pimple edition
                                 </a>
@@ -78,14 +78,14 @@
 
                 </nav>
 
-                <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
-                    <h1>The Pimple edition</h1>
-<p>As explained in the <a href="container.html">dependency injection</a> documentation, Silly can work with any dependency injection container.</p>
+                <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
+                    <h1 id="the-pimple-edition">The Pimple edition</h1>
+<p>As explained in the <a href="dependency-injection.html">dependency injection</a> documentation, Silly can work with any dependency injection container.</p>
 <p>However in order to provide an easy way to get started we provide a &quot;Pimple edition&quot; that is already configured with the <a href="http://pimple.sensiolabs.org/">Pimple container</a>.</p>
 <p>Pimple provides less features than the <a href="php-di.html">PHP-DI edition</a> (for example no autowiring) but might interest those already familiar with it, e.g. Silex users.</p>
-<h2>Installation</h2>
+<h2 id="installation">Installation</h2>
 <pre><code class="language-bash">$ composer require mnapoli/silly-pimple</code></pre>
-<h2>Usage</h2>
+<h2 id="usage">Usage</h2>
 <p>You can store command callables in the container:</p>
 <pre><code class="language-php">class MyCommand
 {
@@ -111,7 +111,7 @@ $pimple['command.greet'] = function () {
 $app-&gt;command('greet [name]', 'command.greet');
 
 $app-&gt;run();</code></pre>
-<h2>Dependency injection in parameters</h2>
+<h2 id="dependency-injection-in-parameters">Dependency injection in parameters</h2>
 <p>You can also use dependency injection in parameters:</p>
 <pre><code class="language-php">use Psr\Logger\LoggerInterface;
 
@@ -129,7 +129,7 @@ $app-&gt;command('greet [name]', function ($name, $dbHost, LoggerInterface $logg
 });
 
 $app-&gt;run();</code></pre>
-<p>Dependency injection in parameters follows the precedence rules explained in the <a href="container.html">dependency injection</a> documentation:</p>
+<p>Dependency injection in parameters follows the precedence rules explained in the <a href="dependency-injection.html">dependency injection</a> documentation:</p>
 <ul>
 <li>command parameters are matched in priority using the parameter names (<code>$name</code>)</li>
 <li>then container entries are matched using the callable type-hint (<code>Psr\Logger\LoggerInterface</code>)</li>

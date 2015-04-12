@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Silly</title>
+        <title></title>
 
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
             <a class="navbar-brand" href="http://mnapoli.fr/silly/">
                 Silly
                 <small class="hidden-xs hidden-sm">
-                    Silly CLI micro-framework based on Symfony Console.
+                    CLI micro-framework based on Symfony Console
                 </small>
             </a>
 
@@ -31,7 +31,7 @@
         <main class="container-fluid">
             <div class="row">
 
-                <nav id="sidebar" class="col-md-3 col-lg-3" role="navigation">
+                <nav id="sidebar" class="col-md-3 col-lg-2" role="navigation">
 
                     <ul class="nav nav-pills nav-stacked">
                                                     <li class="">
@@ -44,7 +44,7 @@
                                     Command definition
                                 </a>
                             </li>
-                                                    <li class="">
+                                                    <li class="active">
                                 <a href="http://mnapoli.fr/silly/docs/command-callables.html">
                                     Command callables
                                 </a>
@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                                                     <li class="">
-                                <a href="http://mnapoli.fr/silly/docs/container.html">
+                                <a href="http://mnapoli.fr/silly/docs/dependency-injection.html">
                                     Dependency injection
                                 </a>
                             </li>
@@ -78,8 +78,8 @@
 
                 </nav>
 
-                <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
-                    <h1>Command callables</h1>
+                <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
+                    <h1 id="command-callables">Command callables</h1>
 <p>A command can be <a href="http://php.net/manual/en/language.types.callable.php">any PHP callable</a>:</p>
 <pre><code class="language-php">// Closure
 $app-&gt;command('foo', function () {
@@ -97,17 +97,18 @@ $app-&gt;command('foo', ['MyClass', 'method']);
 
 // A function
 $app-&gt;command('foo', 'someFunction');</code></pre>
-<h2>Parameters</h2>
+<h2 id="parameters">Parameters</h2>
 <p>The callable can take as parameters the arguments and options defined in the expression:</p>
 <pre><code class="language-php">$app-&gt;command('greet name [--yell]', function ($name, $yell) {
     // ...
 });</code></pre>
+<p>The order of parameters doesn't matter as they are always matched by name.</p>
 <p>When running <code>$ bin/console greet john --yell</code>:</p>
 <ul>
 <li><code>$name</code> will be <code>'john'</code></li>
 <li><code>$yell</code> will be <code>true</code></li>
 </ul>
-<h3>Input and output</h3>
+<h3 id="input-and-output">Input and output</h3>
 <p>You can also ask for the <code>$input</code> and <code>$output</code> parameters to get the traditional Symfony <code>InputInterface</code> and <code>OutputInterface</code> objects (the type-hint is optional):</p>
 <pre><code class="language-php">$app-&gt;command(
     'greet name [--yell]',
@@ -118,15 +119,15 @@ $app-&gt;command('foo', 'someFunction');</code></pre>
         // ...
     }
 );</code></pre>
-<p>Finally, you can mix all that. Parameters are detected by their name.</p>
+<p>Finally, you can mix all that (remember the order of parameters doesn't matter):</p>
 <pre><code class="language-php">$app-&gt;command(
     'greet name [--yell]',
     function ($name, InputInterface $input, OutputInterface $output) {
         // ...
     }
 );</code></pre>
-<h3>Dependency injection</h3>
-<p>It is also possible to set up dependency injection through the callables parameters. To learn more about that, read the <a href="container.html">Dependency injection</a> documentation.</p>
+<h3 id="dependency-injection">Dependency injection</h3>
+<p>It is also possible to set up dependency injection through the callables parameters. To learn more about that, read the <a href="dependency-injection.html">Dependency injection</a> documentation.</p>
                 </section>
 
             </div>

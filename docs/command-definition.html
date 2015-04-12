@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Silly</title>
+        <title></title>
 
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
             <a class="navbar-brand" href="http://mnapoli.fr/silly/">
                 Silly
                 <small class="hidden-xs hidden-sm">
-                    Silly CLI micro-framework based on Symfony Console.
+                    CLI micro-framework based on Symfony Console
                 </small>
             </a>
 
@@ -31,7 +31,7 @@
         <main class="container-fluid">
             <div class="row">
 
-                <nav id="sidebar" class="col-md-3 col-lg-3" role="navigation">
+                <nav id="sidebar" class="col-md-3 col-lg-2" role="navigation">
 
                     <ul class="nav nav-pills nav-stacked">
                                                     <li class="">
@@ -39,7 +39,7 @@
                                     Introduction
                                 </a>
                             </li>
-                                                    <li class="">
+                                                    <li class="active">
                                 <a href="http://mnapoli.fr/silly/docs/command-definition.html">
                                     Command definition
                                 </a>
@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                                                     <li class="">
-                                <a href="http://mnapoli.fr/silly/docs/container.html">
+                                <a href="http://mnapoli.fr/silly/docs/dependency-injection.html">
                                     Dependency injection
                                 </a>
                             </li>
@@ -78,15 +78,15 @@
 
                 </nav>
 
-                <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
-                    <h1>Command definition</h1>
+                <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
+                    <h1 id="command-definition">Command definition</h1>
 <p>Commands are defined using a string expression.</p>
 <p>The expression must start with the command name, optionally using <code>:</code> as a namespace separator, for example:</p>
 <ul>
 <li><code>greet</code></li>
 <li><code>demo:greet</code></li>
 </ul>
-<h2>Arguments</h2>
+<h2 id="arguments">Arguments</h2>
 <p>A command can take arguments:</p>
 <table>
 <thead>
@@ -114,7 +114,7 @@
 </tr>
 </tbody>
 </table>
-<h2>Options</h2>
+<h2 id="options">Options</h2>
 <p>A command can take options:</p>
 <table>
 <thead>
@@ -143,14 +143,14 @@
 </tbody>
 </table>
 <p>Options are always optional (duh). If an option is required, then it should be an argument.</p>
-<h2>Default values</h2>
+<h2 id="default-values">Default values</h2>
 <pre><code class="language-php">$app-&gt;command('greet [firstname] [lastname]', function () {
     // ...
 })-&gt;defaults([
     'firstname' =&gt; 'John',
     'lastname'  =&gt; 'Doe',
 ]);</code></pre>
-<h2>Descriptions</h2>
+<h2 id="descriptions">Descriptions</h2>
 <pre><code class="language-php">$app-&gt;command('greet name [--yell]', function () {
     // ...
 })-&gt;descriptions('Greet someone', [

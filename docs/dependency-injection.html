@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Silly</title>
+        <title></title>
 
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
             <a class="navbar-brand" href="http://mnapoli.fr/silly/">
                 Silly
                 <small class="hidden-xs hidden-sm">
-                    Silly CLI micro-framework based on Symfony Console.
+                    CLI micro-framework based on Symfony Console
                 </small>
             </a>
 
@@ -31,7 +31,7 @@
         <main class="container-fluid">
             <div class="row">
 
-                <nav id="sidebar" class="col-md-3 col-lg-3" role="navigation">
+                <nav id="sidebar" class="col-md-3 col-lg-2" role="navigation">
 
                     <ul class="nav nav-pills nav-stacked">
                                                     <li class="">
@@ -54,8 +54,8 @@
                                     Console helpers
                                 </a>
                             </li>
-                                                    <li class="">
-                                <a href="http://mnapoli.fr/silly/docs/container.html">
+                                                    <li class="active">
+                                <a href="http://mnapoli.fr/silly/docs/dependency-injection.html">
                                     Dependency injection
                                 </a>
                             </li>
@@ -78,14 +78,14 @@
 
                 </nav>
 
-                <section id="content" class="col-md-offset-3 col-lg-offset-3 col-md-9 col-lg-9">
-                    <h1>Dependency injection</h1>
+                <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
+                    <h1 id="dependency-injection">Dependency injection</h1>
 <p>Silly helps you to do dependency injection without forcing you to use a specific dependency injection container.</p>
-<h2>Choose your container</h2>
+<h2 id="choose-your-container">Choose your container</h2>
 <p>Silly uses the <a href="https://github.com/container-interop/container-interop">container-interop standard</a> in order to be compatible with any dependency injection container. The idea is simple: you can set up Silly to use the implementation you prefer.</p>
 <pre><code class="language-php">$app-&gt;useContainer($container);</code></pre>
 <p>You can retrieve the container using <code>$app-&gt;getContainer()</code>.</p>
-<h2>Callables in the container</h2>
+<h2 id="callables-in-the-container">Callables in the container</h2>
 <p>By registering a container with <code>$app-&gt;useContainer()</code>, you can now store your callables inside your containers and Silly with be able to resolve them:</p>
 <pre><code class="language-php">$app-&gt;command('greet [name]', 'the-service-id');</code></pre>
 <p>This allows to define commands as PHP classes that can use dependency injection (given the class is resolved from the container).</p>
@@ -120,7 +120,7 @@ $app-&gt;command('process [directory]', 'MyApp\Command\ScanCommand');</code></pr
 
 $app-&gt;command('process [directory]', ['MyApp\Command\ScanCommand', 'execute']);</code></pre>
 <p>You might recognize the PHP callable <code>['MyApp\Command\ScanCommand', 'execute']</code> (array callable) except the first item is not an object: it is the ID of a container entry (a class name or any other string, as long as your container can resolve it).</p>
-<h2>Dependency injection in parameters</h2>
+<h2 id="dependency-injection-in-parameters">Dependency injection in parameters</h2>
 <p>Storing your command callables in a container (as shown above) is a good solution for using dependency injection with classes.</p>
 <p>However if you define your commands using closures, you cannot benefit of dependency injection. To solve that problem, Silly supports dependency injection in your callables's parameters.</p>
 <p>Confused? Don't worry, this is similar to how <a href="https://docs.angularjs.org/guide/di">dependency injection is implemented in AngularJS</a>:</p>
@@ -142,9 +142,13 @@ $app-&gt;command('process [directory]', function (LoggerInterface $logger) {
 </ul>
 <p>Depending on how you declare your container entries you might want to enable one or the other way, or both.</p>
 <pre><code class="language-php">$app-&gt;useContainer($container, $injectByTypeHint = true, $injectByParameterName = true);</code></pre>
-<p>If you set both to <code>true</code>, it will first look using the type-hint, then using the parameter name. In case of conflict with a command parameters, the command parameter is injected in priority over dependency injection.</p>
 <p><em>Note that by default both options are disabled.</em></p>
-<h2>Learn more</h2>
+<p>If you set both to <code>true</code>, it will first look using the type-hint, then using the parameter name. In case of conflict with a command parameters, the command parameter is injected in priority over dependency injection.</p>
+<p>Remember again that the order of parameters doesn't matter, even when you mix dependency injection with the command parameters. Here is an example:</p>
+<pre><code class="language-php">$app-&gt;command('process [directory]', function ($output, Logger $logger, $directory) {
+    // ...
+});</code></pre>
+<h2 id="learn-more">Learn more</h2>
 <p>Are you a library/framework developer interested in such features? Do you want to understand how all this work in details? Silly uses the <a href="https://github.com/mnapoli/Invoker#built-in-support-for-dependency-injection">Invoker</a> library for supporting dependency injection.</p>
                 </section>
 
