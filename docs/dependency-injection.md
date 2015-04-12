@@ -100,9 +100,17 @@ Depending on how you declare your container entries you might want to enable one
 $app->useContainer($container, $injectByTypeHint = true, $injectByParameterName = true);
 ```
 
+*Note that by default both options are disabled.*
+
 If you set both to `true`, it will first look using the type-hint, then using the parameter name. In case of conflict with a command parameters, the command parameter is injected in priority over dependency injection.
 
-*Note that by default both options are disabled.*
+Remember again that the order of parameters doesn't matter, even when you mix dependency injection with the command parameters. Here is an example:
+
+```php
+$app->command('process [directory]', function ($output, Logger $logger, $directory) {
+    // ...
+});
+```
 
 ## Learn more
 
