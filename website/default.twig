@@ -15,10 +15,10 @@
 
         <header class="navbar navbar-inverse navbar-fixed-top">
 
-            <a class="navbar-brand title-text" href="{{ baseUrl }}/">
-                {{ title|default('The title') }}  |
+            <a class="navbar-brand" href="{{ baseUrl }}/">
+                {{ title|default('The title') }} |
                 <small class="hidden-xs hidden-sm">
-                    {{subTitle|default('This is the default subtitle!') }}
+                    {{ subTitle|default('This is the default subtitle!') }}
                 </small>
             </a>
 
@@ -31,7 +31,7 @@
         <main class="container-fluid">
             <div class="row">
 
-                <nav id="sidebar" class="col-md-2 col-lg-2" role="navigation">
+                <nav id="sidebar" class="col-md-3 col-lg-2" role="navigation">
 
                     <ul class="nav nav-pills nav-stacked">
                         {% for itemId, item in menu.items %}
@@ -45,7 +45,7 @@
 
                 </nav>
 
-                <section id="content" class="col-md-offset-2 col-lg-offset-2 col-md-10 col-lg-10">
+                <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
                     {{ content|raw }}
                 </section>
 
