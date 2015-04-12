@@ -1,3 +1,4 @@
+/.couscous/
 /vendor/
 /composer.phar
 /composer.lock
