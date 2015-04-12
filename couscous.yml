@@ -17,7 +17,7 @@ menu:
         helpers:
             text: Console helpers
             relativeUrl: docs/helpers.html
-        container:
+        dependency-injection:
             text: Dependency injection
             relativeUrl: docs/dependency-injection.html
         php-di:

@@ -1,3 +1,6 @@
+---
+currentMenu: home
+---
 Silly CLI micro-framework based on Symfony Console.
 
 [![Build Status](https://img.shields.io/travis/mnapoli/silly.svg?style=flat-square)](https://travis-ci.org/mnapoli/silly)

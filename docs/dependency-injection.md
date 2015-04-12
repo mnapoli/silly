@@ -1,3 +1,6 @@
+---
+currentMenu: dependency-injection
+---
 # Dependency injection
 
 Silly helps you to do dependency injection without forcing you to use a specific dependency injection container.

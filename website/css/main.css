@@ -134,14 +134,14 @@ header.navbar {
 #sidebar .text-muted {
     color: #bbbbbb;
 }
-#sidebar a {
+#sidebar li>a {
     text-transform: uppercase;
     color: #e69411;
     border-radius: 0;
     border-bottom: solid 2px transparent;
     padding: 8px 15px;
 }
-#sidebar a:hover, #sidebar a:focus {
+#sidebar li.active>a, #sidebar li>a:hover, #sidebar li>a:focus {
     text-decoration: none;
     background: none;
     border-bottom: solid 2px;

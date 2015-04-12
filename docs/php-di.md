@@ -1,3 +1,6 @@
+---
+currentMenu: php-di
+---
 # The PHP-DI edition
 
 As explained in the [dependency injection](dependency-injection.md) documentation, Silly can work with any dependency injection container.

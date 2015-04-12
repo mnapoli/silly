@@ -1,3 +1,6 @@
+---
+currentMenu: callable
+---
 # Command callables
 
 A command can be [any PHP callable](http://php.net/manual/en/language.types.callable.php):

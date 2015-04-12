@@ -1,3 +1,6 @@
+---
+currentMenu: helpers
+---
 # Console helpers
 
 You can use [Symfony's console helpers](http://symfony.com/doc/current/components/console/helpers/index.html) by getting them from the application:

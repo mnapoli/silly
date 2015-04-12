@@ -1,3 +1,6 @@
+---
+currentMenu: definition
+---
 # Command definition
 
 Commands are defined using a string expression.
