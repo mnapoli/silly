@@ -79,14 +79,14 @@
                 </nav>
 
                 <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
-                    <h1 id="command-definition">Command definition</h1>
+                    <h1>Command definition</h1>
 <p>Commands are defined using a string expression.</p>
 <p>The expression must start with the command name, optionally using <code>:</code> as a namespace separator, for example:</p>
 <ul>
 <li><code>greet</code></li>
 <li><code>demo:greet</code></li>
 </ul>
-<h2 id="arguments">Arguments</h2>
+<h2>Arguments</h2>
 <p>A command can take arguments:</p>
 <table>
 <thead>
@@ -114,7 +114,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="options">Options</h2>
+<h2>Options</h2>
 <p>A command can take options:</p>
 <table>
 <thead>
@@ -143,14 +143,14 @@
 </tbody>
 </table>
 <p>Options are always optional (duh). If an option is required, then it should be an argument.</p>
-<h2 id="default-values">Default values</h2>
+<h2>Default values</h2>
 <pre><code class="language-php">$app-&gt;command('greet [firstname] [lastname]', function () {
     // ...
 })-&gt;defaults([
     'firstname' =&gt; 'John',
     'lastname'  =&gt; 'Doe',
 ]);</code></pre>
-<h2 id="descriptions">Descriptions</h2>
+<h2>Descriptions</h2>
 <pre><code class="language-php">$app-&gt;command('greet name [--yell]', function () {
     // ...
 })-&gt;descriptions('Greet someone', [
