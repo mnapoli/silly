@@ -85,7 +85,7 @@ In Silly, it would look like this:
 ```php
 use Psr\Logger\LoggerInterface;
 
-$app->command('process [directory]', function (LoggerInterface $logger) {
+$app->command('process [directory]', function (LoggerInterface $logger, $directory) {
     $logger->info('Processing directory ' . $directory);
 
     // ...
