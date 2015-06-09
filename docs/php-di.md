@@ -18,9 +18,11 @@ $ composer require mnapoli/silly-php-di
 Thanks to PHP-DI's autowiring capabilities you can define your commands in classes:
 
 ```php
+use Symfony\Component\Console\Output\OutputInterface;
+
 class MyCommand
 {
-    public function execute($name, OutputInterface $output)
+    public function __invoke($name, OutputInterface $output)
     {
         if ($name) {
             $text = 'Hello, '.$name;
