@@ -18,6 +18,8 @@ $ composer require mnapoli/silly
 Example of a Silly application:
 
 ```php
+use use Symfony\Component\Console\Output\OutputInterface;
+
 $app = new Silly\Application();
 
 $app->command('greet [name] [--yell]', function ($name, $yell, OutputInterface $output) {
