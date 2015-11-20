@@ -18,7 +18,7 @@ $ composer require mnapoli/silly
 Example of a Silly application:
 
 ```php
-use use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 $app = new Silly\Application();
 
