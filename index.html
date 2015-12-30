@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title></title>
+        <title>Silly - CLI micro-framework based on Symfony Console</title>
 
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
@@ -83,11 +83,13 @@
 <p><a href="https://travis-ci.org/mnapoli/silly"><img src="https://img.shields.io/travis/mnapoli/silly.svg?style=flat-square" alt="Build Status" /></a>
 <a href="https://coveralls.io/r/mnapoli/silly?branch=master"><img src="https://img.shields.io/coveralls/mnapoli/silly/master.svg?style=flat-square" alt="Coverage Status" /></a>
 <a href="https://scrutinizer-ci.com/g/mnapoli/silly/?branch=master"><img src="https://img.shields.io/scrutinizer/g/mnapoli/silly.svg?style=flat-square" alt="Scrutinizer Code Quality" /></a></p>
-<h2>Installation</h2>
+<h2 id="installation">Installation</h2>
 <pre><code class="language-bash">$ composer require mnapoli/silly</code></pre>
-<h2>Usage</h2>
+<h2 id="usage">Usage</h2>
 <p>Example of a Silly application:</p>
-<pre><code class="language-php">$app = new Silly\Application();
+<pre><code class="language-php">use Symfony\Component\Console\Output\OutputInterface;
+
+$app = new Silly\Application();
 
 $app-&gt;command('greet [name] [--yell]', function ($name, $yell, OutputInterface $output) {
     if ($name) {
@@ -110,7 +112,7 @@ Hello
 $ php application.php greet john --yell
 HELLO JOHN</code></pre>
 <p><code>Silly\Application</code> extends <code>Symfony\Console\Application</code> and can be used wherever Symfony's Application can.</p>
-<h2>Documentation</h2>
+<h2 id="documentation">Documentation</h2>
 <ul>
 <li><a href="docs/command-definition.html">Command definition</a></li>
 <li><a href="docs/command-callables.html">Command callables</a></li>
@@ -119,10 +121,10 @@ HELLO JOHN</code></pre>
 <li><a href="docs/php-di.html">The PHP-DI edition</a></li>
 <li><a href="docs/pimple.html">The Pimple edition</a></li>
 </ul>
-<h2>Do more</h2>
+<h2 id="do-more">Do more</h2>
 <p>Silly is just an implementation over the Symfony Console. Read <a href="http://symfony.com/doc/current/components/console/introduction.html">the Symfony documentation</a> to learn everything you can do with it.</p>
-<h2>Contributing</h2>
-<p>See the <a href="CONTRIBUTING.html">CONTRIBUTING</a> file.</p>
+<h2 id="contributing">Contributing</h2>
+<p>See the <a href="contributing.html">CONTRIBUTING</a> file.</p>
                 </section>
 
             </div>

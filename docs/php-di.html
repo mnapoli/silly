@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title></title>
+        <title>Silly - CLI micro-framework based on Symfony Console</title>
 
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://mnapoli.fr/silly/css/font-awesome.min.css">
@@ -79,12 +79,12 @@
                 </nav>
 
                 <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
-                    <h1>The PHP-DI edition</h1>
+                    <h1 id="the-php-di-edition">The PHP-DI edition</h1>
 <p>As explained in the <a href="dependency-injection.html">dependency injection</a> documentation, Silly can work with any dependency injection container.</p>
 <p>However in order to provide an easy way to get started we provide a &quot;PHP-DI edition&quot; that is already configured with the <a href="http://php-di.org">PHP-DI container</a>.</p>
-<h2>Installation</h2>
+<h2 id="installation">Installation</h2>
 <pre><code class="language-bash">$ composer require mnapoli/silly-php-di</code></pre>
-<h2>Usage</h2>
+<h2 id="usage">Usage</h2>
 <p>Thanks to PHP-DI's autowiring capabilities you can define your commands in classes:</p>
 <pre><code class="language-php">use Symfony\Component\Console\Output\OutputInterface;
 
@@ -108,7 +108,7 @@ $app-&gt;command('greet [name]', 'MyCommand');
 
 $app-&gt;run();</code></pre>
 <p>PHP-DI will automatically create a new instance of <code>MyCommand</code> when the <code>greet</code> command is called.</p>
-<h2>Dependency injection in parameters</h2>
+<h2 id="dependency-injection-in-parameters">Dependency injection in parameters</h2>
 <p>You can also use dependency injection in parameters:</p>
 <pre><code class="language-php">use Psr\Logger\LoggerInterface;
 
