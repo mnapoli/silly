@@ -221,6 +221,38 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Check that `$this` is the application.
+     *
+     * @test
+     */
+    public function it_should_run_a_command_in_the_scope_of_the_application()
+    {
+        $whatIsThis = null;
+        $this->application->command('foo', function () use (&$whatIsThis) {
+            $whatIsThis = $this;
+        });
+
+        $this->assertOutputIs('foo', '');
+        $this->assertSame($this->application, $whatIsThis);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_run_a_subcommand()
+    {
+        $this->application->command('foo', function (Out $output) {
+            $output->write('hello');
+        });
+        $this->application->command('bar', function (Out $output) {
+            $this->runCommand('foo', $output);
+            $output->write(' world');
+        });
+
+        $this->assertOutputIs('bar', 'hello world');
+    }
+
+    /**
      * @test
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Impossible to call the 'greet' command: Unable to invoke the callable because no value was given for parameter 1 ($foo)

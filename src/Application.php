@@ -70,6 +70,10 @@ class Application extends SymfonyApplication
                 $input->getOptions()
             );
 
+            if ($callable instanceof \Closure) {
+                $callable = $callable->bindTo($this, $this);
+            }
+
             try {
                 return $this->invoker->call($callable, $parameters);
             } catch (InvocationException $e) {
