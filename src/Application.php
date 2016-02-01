@@ -14,6 +14,8 @@ use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -132,6 +134,23 @@ class Application extends SymfonyApplication
         }
 
         $this->invoker = new Invoker(new ResolverChain($resolvers), $container);
+    }
+
+    /**
+     * Helper to run a sub-command from a command.
+     *
+     * @param string $command Command that should be run.
+     * @param OutputInterface|null $output The output to use. If not provided, the output will be silenced.
+     *
+     * @return int 0 if everything went fine, or an error code
+     */
+    public function runCommand($command, OutputInterface $output = null)
+    {
+        $input = new StringInput($command);
+
+        $command = $this->find($this->getCommandName($input));
+
+        return $command->run($input, $output ?: new NullOutput());
     }
 
     /**
