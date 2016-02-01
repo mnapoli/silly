@@ -81,16 +81,21 @@
                 <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
                     <h1 id="console-helpers">Console helpers</h1>
 <p>You can use <a href="http://symfony.com/doc/current/components/console/helpers/index.html">Symfony's console helpers</a> by getting them from the application:</p>
-<pre><code class="language-php">$app = new Silly\Application();
-
-$app-&gt;command('greet', function ($input, $output) use ($app) {
-    $helper = $app-&gt;getHelperSet()-&gt;get('question');
+<pre><code class="language-php">$app-&gt;command('greet', function ($input, $output) {
+    $helper = $this-&gt;getHelperSet()-&gt;get('question');
 
     $question = new ConfirmationQuestion('Are you sure?', false);
 
     if ($helper-&gt;ask($input, $output, $question)) {
         $output-&gt;writeln('Hello!');
     }
+});</code></pre>
+<h2 id="running-a-sub-command">Running a sub-command</h2>
+<p>Silly implements a little helper to run sub-commands easily:</p>
+<pre><code class="language-php">$app-&gt;command('init', function ($input, $output) {
+    $this-&gt;runCommand('db:drop --force', $output)
+    $this-&gt;runCommand('db:create', $output)
+    $this-&gt;runCommand('db:fixtures --verbose', $output)
 });</code></pre>
                 </section>
 
