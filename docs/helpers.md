@@ -16,3 +16,15 @@ $app->command('greet', function ($input, $output) {
     }
 });
 ```
+
+## Running a sub-command
+
+Silly implements a little helper to run sub-commands easily:
+
+```php
+$app->command('init', function ($input, $output) {
+    $this->runCommand('db:drop --force', $output)
+    $this->runCommand('db:create', $output)
+    $this->runCommand('db:fixtures --verbose', $output)
+});
+```
