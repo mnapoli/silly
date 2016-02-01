@@ -37,6 +37,18 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_should_return_the_exit_code()
+    {
+        $this->application->command('greet', function () {
+            return 1;
+        });
+        $code = $this->application->run(new StringInput('greet'), new SpyOutput());
+        $this->assertEquals(1, $code);
+    }
+
+    /**
+     * @test
+     */
     public function it_should_run_a_command_with_an_argument()
     {
         $this->application->command('greet name', function ($name, Out $output) {

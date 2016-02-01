@@ -69,7 +69,7 @@ class Application extends SymfonyApplication
             );
 
             try {
-                $this->invoker->call($callable, $parameters);
+                return $this->invoker->call($callable, $parameters);
             } catch (InvocationException $e) {
                 throw new \RuntimeException(sprintf(
                     "Impossible to call the '%s' command: %s",
