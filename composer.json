@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=5.5",
-        "symfony/console": "~2.6",
+        "symfony/console": "~2.6|~3.0",
         "php-di/invoker": "~1.2",
         "container-interop/container-interop": "~1.0"
     },
