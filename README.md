@@ -56,8 +56,8 @@ HELLO JOHN
 - [Command callables](docs/command-callables.md)
 - [Console helpers](docs/helpers.md)
 - [Dependency injection](docs/dependency-injection.md)
-- [The PHP-DI edition](docs/php-di.md)
-- [The Pimple edition](docs/pimple.md)
+    - [The PHP-DI edition](docs/php-di.md)
+    - [The Pimple edition](docs/pimple.md)
 
 ## Do more
 
