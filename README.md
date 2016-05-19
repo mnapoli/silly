@@ -46,6 +46,8 @@ $ php application.php greet
 Hello
 $ php application.php greet john --yell
 HELLO JOHN
+$ php application.php greet --yell john
+HELLO JOHN
 ```
 
 `Silly\Application` extends `Symfony\Console\Application` and can be used wherever Symfony's Application can.
