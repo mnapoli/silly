@@ -14,6 +14,8 @@ class Command extends \Symfony\Component\Console\Command\Command
      * @param string $description                   Description of the command.
      * @param array  $argumentAndOptionDescriptions Descriptions of the arguments and options.
      *
+     * @return $this
+     *
      * @api
      */
     public function descriptions($description, array $argumentAndOptionDescriptions = [])
@@ -30,6 +32,8 @@ class Command extends \Symfony\Component\Console\Command\Command
                 $this->setArgumentDescription($definition, $name, $value);
             }
         }
+
+        return $this;
     }
 
     /**
