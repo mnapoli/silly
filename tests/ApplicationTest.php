@@ -87,4 +87,15 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         });
         $this->assertSame(1, $this->application->runCommand('foo'));
     }
+
+    /**
+     * @test
+     */
+    public function runs_a_command_via_its_alias_and_returns_exit_code()
+    {
+        $this->application->command('foo', function () {
+            return 1;
+        }, ['bar']);
+        $this->assertSame(1, $this->application->runCommand('bar'));
+    }
 }
