@@ -51,14 +51,16 @@ class Application extends SymfonyApplication
     /**
      * Define a CLI command using a string expression and a callable.
      *
-     * @param string                $expression Defines the arguments and options of the command.
-     * @param callable|string|array $callable   Called when the command is called.
+     * @param string $expression Defines the arguments and options of the command.
+     * @param callable|string|array $callable Called when the command is called.
      *                                          When using a container, this can be a "pseudo-callable"
      *                                          i.e. the name of the container entry to invoke.
      *
+     * @param array $aliases An array of aliases for the command.
+     *
      * @return Command
      */
-    public function command($expression, $callable)
+    public function command($expression, $callable, array $aliases = [])
     {
         $commandFunction = function (InputInterface $input, OutputInterface $output) use ($callable) {
             $parameters = array_merge(
@@ -86,6 +88,7 @@ class Application extends SymfonyApplication
         };
 
         $command = $this->createCommand($expression, $commandFunction);
+        $command->setAliases($aliases);
 
         $this->add($command);
 
