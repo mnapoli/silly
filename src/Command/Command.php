@@ -52,13 +52,15 @@ class Command extends \Symfony\Component\Console\Command\Command
         foreach ($defaults as $name => $default) {
             if ($definition->hasArgument($name)) {
                 $input = $definition->getArgument($name);
-            } else if ($definition->hasOption($name)) {
+            } elseif ($definition->hasOption($name)) {
                 $input = $definition->getOption($name);
-            } else if (strpos($name, '--') === 0) {
+            } elseif (strpos($name, '--') === 0) {
                 $name = substr($name, 2);
                 $input = $definition->getOption($name);
             } else {
-                throw new \InvalidArgumentException("Unable to set default for [{$name}]. It does not exist as an argument or option.");
+                throw new \InvalidArgumentException(
+                    "Unable to set default for [{$name}]. It does not exist as an argument or option."
+                );
             }
 
             $input->setDefault($default);
