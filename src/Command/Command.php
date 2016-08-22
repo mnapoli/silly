@@ -54,9 +54,6 @@ class Command extends \Symfony\Component\Console\Command\Command
                 $input = $definition->getArgument($name);
             } elseif ($definition->hasOption($name)) {
                 $input = $definition->getOption($name);
-            } elseif (strpos($name, '--') === 0) {
-                $name = substr($name, 2);
-                $input = $definition->getOption($name);
             } else {
                 throw new \InvalidArgumentException(
                     "Unable to set default for [{$name}]. It does not exist as an argument or option."

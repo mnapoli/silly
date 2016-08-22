@@ -52,7 +52,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
     {
         $this->command->defaults([
             'name' => 'John',
-            '--times' => '1',
+            'times' => '1',
         ]);
 
         $definition = $this->command->getDefinition();

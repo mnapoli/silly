@@ -42,7 +42,7 @@ $app->command('greet [firstname] [lastname] [--age=]', function () {
 })->defaults([
     'firstname' => 'John',
     'lastname'  => 'Doe',
-    '--age' => 25,
+    'age' => 25,
 ]);
 ```
 
