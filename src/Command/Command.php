@@ -50,11 +50,15 @@ class Command extends \Symfony\Component\Console\Command\Command
         $definition = $this->getDefinition();
 
         foreach ($defaults as $name => $default) {
-            if (strpos($name, '--') === 0) {
+            if ($definition->hasArgument($name)) {
+                $input = $definition->getArgument($name);
+            } else if ($definition->hasOption($name)) {
+                $input = $definition->getOption($name);
+            } else if (strpos($name, '--') === 0) {
                 $name = substr($name, 2);
                 $input = $definition->getOption($name);
             } else {
-                $input = $definition->getArgument($name);
+                throw new \InvalidArgumentException("Unable to set default for [{$name}]. It does not exist as an argument or option.");
             }
 
             $input->setDefault($default);

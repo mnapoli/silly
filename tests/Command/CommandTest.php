@@ -60,4 +60,29 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('John', $definition->getArgument('name')->getDefault());
         $this->assertEquals('1', $definition->getOption('times')->getDefault());
     }
+
+    /**
+     * @test
+     */
+    public function setting_defaults_falls_back_to_options_when_no_argument_exists()
+    {
+        $this->command->defaults([
+            'times' => '5',
+        ]);
+
+        $definition = $this->command->getDefinition();
+
+        $this->assertEquals(5, $definition->getOption("times")->getDefault());
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function setting_unknown_defaults_throws_an_exception()
+    {
+        $this->command->defaults([
+            'doesnotexist' => '0',
+        ]);
+    }
 }
