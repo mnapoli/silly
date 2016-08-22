@@ -39,7 +39,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     /**
      * Define default values for the arguments of the command.
      *
-     * @param array $argumentDefaults Default argument values.
+     * @param array $defaults Default argument values.
      *
      * @return $this
      *
