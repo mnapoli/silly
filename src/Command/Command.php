@@ -45,13 +45,19 @@ class Command extends \Symfony\Component\Console\Command\Command
      *
      * @api
      */
-    public function defaults(array $argumentDefaults = [])
+    public function defaults(array $defaults = [])
     {
         $definition = $this->getDefinition();
 
-        foreach ($argumentDefaults as $name => $default) {
-            $argument = $definition->getArgument($name);
-            $argument->setDefault($default);
+        foreach ($defaults as $name => $default) {
+            if (strpos($name, '--') === 0) {
+                $name = substr($name, 2);
+                $input = $definition->getOption($name);
+            } else {
+                $input = $definition->getArgument($name);
+            }
+
+            $input->setDefault($default);
         }
 
         return $this;
