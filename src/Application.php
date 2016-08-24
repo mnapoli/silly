@@ -45,6 +45,10 @@ class Application extends SymfonyApplication
         $this->expressionParser = new ExpressionParser();
         $this->invoker = new Invoker();
 
+        if ($this->invoker->getParameterResolver() instanceof ResolverChain) {
+            $this->invoker->getParameterResolver()->appendResolver(new HyphenatedInputResolver);
+        }
+
         parent::__construct($name, $version);
     }
 
@@ -132,6 +136,7 @@ class Application extends SymfonyApplication
 
         $resolvers = [
             new AssociativeArrayResolver,
+            new HyphenatedInputResolver,
         ];
         if ($injectByTypeHint) {
             $resolvers[] = new TypeHintContainerResolver($container);
