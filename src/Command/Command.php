@@ -39,19 +39,28 @@ class Command extends \Symfony\Component\Console\Command\Command
     /**
      * Define default values for the arguments of the command.
      *
-     * @param array $argumentDefaults Default argument values.
+     * @param array $defaults Default argument values.
      *
      * @return $this
      *
      * @api
      */
-    public function defaults(array $argumentDefaults = [])
+    public function defaults(array $defaults = [])
     {
         $definition = $this->getDefinition();
 
-        foreach ($argumentDefaults as $name => $default) {
-            $argument = $definition->getArgument($name);
-            $argument->setDefault($default);
+        foreach ($defaults as $name => $default) {
+            if ($definition->hasArgument($name)) {
+                $input = $definition->getArgument($name);
+            } elseif ($definition->hasOption($name)) {
+                $input = $definition->getOption($name);
+            } else {
+                throw new \InvalidArgumentException(
+                    "Unable to set default for [{$name}]. It does not exist as an argument or option."
+                );
+            }
+
+            $input->setDefault($default);
         }
 
         return $this;

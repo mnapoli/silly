@@ -37,11 +37,12 @@ Options are always optional (duh). If an option is required, then it should be a
 ## Default values
 
 ```php
-$app->command('greet [firstname] [lastname]', function () {
+$app->command('greet [firstname] [lastname] [--age=]', function () {
     // ...
 })->defaults([
     'firstname' => 'John',
     'lastname'  => 'Doe',
+    'age' => 25,
 ]);
 ```
 

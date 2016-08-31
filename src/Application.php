@@ -10,6 +10,7 @@ use Invoker\ParameterResolver\AssociativeArrayResolver;
 use Invoker\ParameterResolver\Container\ParameterNameContainerResolver;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 use Invoker\ParameterResolver\ResolverChain;
+use ReflectionFunction;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
@@ -89,6 +90,10 @@ class Application extends SymfonyApplication
 
         $command = $this->createCommand($expression, $commandFunction);
         $command->setAliases($aliases);
+
+        if (is_callable($callable)) {
+            $command->defaults($this->defaultsViaReflection($callable));
+        }
 
         $this->add($command);
 
@@ -194,5 +199,22 @@ class Application extends SymfonyApplication
         $command->setCode($callable);
 
         return $command;
+    }
+
+    private function defaultsViaReflection(callable $callable)
+    {
+        $function = new ReflectionFunction($callable);
+
+        $defaults = [];
+
+        foreach ($function->getParameters() as $parameter) {
+            if (! $parameter->isDefaultValueAvailable()) {
+                continue;
+            }
+
+            $defaults[$parameter->name] = $parameter->getDefaultValue();
+        }
+
+        return $defaults;
     }
 }
