@@ -9,6 +9,8 @@ use Invoker\InvokerInterface;
 use Invoker\ParameterResolver\AssociativeArrayResolver;
 use Invoker\ParameterResolver\Container\ParameterNameContainerResolver;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
+use Invoker\ParameterResolver\DefaultValueResolver;
+use Invoker\ParameterResolver\NumericArrayResolver;
 use Invoker\ParameterResolver\ResolverChain;
 use ReflectionFunction;
 use Silly\Command\Command;
@@ -44,7 +46,7 @@ class Application extends SymfonyApplication
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
         $this->expressionParser = new ExpressionParser();
-        $this->invoker = new Invoker();
+        $this->invoker = new Invoker($this->createParameterResolver());
 
         parent::__construct($name, $version);
     }
@@ -137,6 +139,7 @@ class Application extends SymfonyApplication
 
         $resolvers = [
             new AssociativeArrayResolver,
+            new HyphenatedInputResolver,
         ];
         if ($injectByTypeHint) {
             $resolvers[] = new TypeHintContainerResolver($container);
@@ -216,5 +219,20 @@ class Application extends SymfonyApplication
         }
 
         return $defaults;
+    }
+
+    /**
+     * Create the default parameter resolver.
+     *
+     * @return ParameterResolver
+     */
+    private function createParameterResolver()
+    {
+        return new ResolverChain([
+            new NumericArrayResolver,
+            new AssociativeArrayResolver,
+            new HyphenatedInputResolver,
+            new DefaultValueResolver,
+        ]);
     }
 }

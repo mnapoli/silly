@@ -112,6 +112,52 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_should_match_hyphenated_arguments_to_lowercase_parameters()
+    {
+        $this->application->command('greet first-name', function ($firstname, Out $output) {
+            $output->write('hello ' . $firstname);
+        });
+        $this->assertOutputIs('greet john', 'hello john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_match_hyphenated_arguments_to_mixedcase_parameters()
+    {
+        $this->application->command('greet first-name', function ($firstName, Out $output) {
+            $output->write('hello ' . $firstName);
+        });
+        $this->assertOutputIs('greet john', 'hello john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_match_hyphenated_option_to_lowercase_parameters()
+    {
+        $this->application->command('greet [--yell-louder]', function ($yelllouder, Out $output) {
+            $output->write(var_export($yelllouder, true));
+        });
+        $this->assertOutputIs('greet', 'false');
+        $this->assertOutputIs('greet --yell-louder', 'true');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_match_hyphenated_option_to_mixed_case_parameters()
+    {
+        $this->application->command('greet [--yell-louder]', function ($yellLouder, Out $output) {
+            $output->write(var_export($yellLouder, true));
+        });
+        $this->assertOutputIs('greet', 'false');
+        $this->assertOutputIs('greet --yell-louder', 'true');
+    }
+
+    /**
+     * @test
+     */
     public function it_can_resolve_a_callable_string_from_a_container()
     {
         $container = new ArrayContainer([
