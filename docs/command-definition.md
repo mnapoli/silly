@@ -36,6 +36,8 @@ Options are always optional (duh). If an option is required, then it should be a
 
 ## Default values
 
+Default values for arguments and options can be defined explicitly:
+
 ```php
 $app->command('greet [firstname] [lastname] [--age=]', function () {
     // ...
@@ -44,6 +46,14 @@ $app->command('greet [firstname] [lastname] [--age=]', function () {
     'lastname'  => 'Doe',
     'age' => 25,
 ]);
+```
+
+They can also be inferred from the callback parameters *if it is a callable*:
+
+```php
+$app->command('greet [name] [--age=]', function ($name = 'John', $age = 25) {
+    // ...
+});
 ```
 
 ## Descriptions
