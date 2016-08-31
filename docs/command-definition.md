@@ -66,3 +66,13 @@ $app->command('greet name [--yell]', function () {
     '--yell' => 'If set, the task will yell in uppercase letters',
 ]);
 ```
+
+## Hyphens
+
+Arguments and options containing hyphens (`-`) are matched to camelCase variables:
+
+```php
+$app->command('run [--dry-run]', function ($dryRun) {
+    // ...
+});
+```
