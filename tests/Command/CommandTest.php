@@ -99,4 +99,20 @@ class CommandTest extends \PHPUnit_Framework_TestCase
             'doesnotexist' => '0',
         ]);
     }
+
+    /**
+     * @test
+     */
+    public function arguments_that_do_not_map_to_defaults_are_not_added()
+    {
+        $this->application->command('greet [name]', [new GreetCommand, 'greet']);
+    }
+}
+
+class GreetCommand
+{
+    public function greet($times = 15)
+    {
+        //
+    }
 }

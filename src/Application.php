@@ -94,7 +94,7 @@ class Application extends SymfonyApplication
         $command->setAliases($aliases);
 
         if (is_callable($callable)) {
-            $command->defaults($this->defaultsViaReflection($callable));
+            $command->defaults($this->defaultsViaReflection($command, $callable));
         }
 
         $this->add($command);
@@ -204,14 +204,20 @@ class Application extends SymfonyApplication
         return $command;
     }
 
-    private function defaultsViaReflection(callable $callable)
+    private function defaultsViaReflection($command, $callable)
     {
         $function = new ReflectionFunction($callable);
+
+        $definition = $command->getDefinition();
 
         $defaults = [];
 
         foreach ($function->getParameters() as $parameter) {
             if (! $parameter->isDefaultValueAvailable()) {
+                continue;
+            }
+
+            if (! $definition->hasArgument($parameter->name) && ! $definition->hasOption($parameter->name)) {
                 continue;
             }
 
