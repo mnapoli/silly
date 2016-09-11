@@ -214,7 +214,7 @@ class Application extends SymfonyApplication
         return new ReflectionFunction($callable);
     }
 
-    private function defaultsViaReflection($command, callable $callable)
+    private function defaultsViaReflection($command, $callable)
     {
         $function = $this->reflect($callable);
 
