@@ -13,6 +13,7 @@ use Invoker\ParameterResolver\DefaultValueResolver;
 use Invoker\ParameterResolver\NumericArrayResolver;
 use Invoker\ParameterResolver\ResolverChain;
 use ReflectionFunction;
+use ReflectionMethod;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
@@ -204,9 +205,18 @@ class Application extends SymfonyApplication
         return $command;
     }
 
-    private function defaultsViaReflection($command, $callable)
+    private function reflect($callable)
     {
-        $function = new ReflectionFunction($callable);
+        if (is_array($callable)) {
+            return new ReflectionMethod($callable[0], $callable[1]);
+        }
+
+        return new ReflectionFunction($callable);
+    }
+
+    private function defaultsViaReflection($command, callable $callable)
+    {
+        $function = $this->reflect($callable);
 
         $definition = $command->getDefinition();
 
