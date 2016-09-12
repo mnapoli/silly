@@ -320,6 +320,17 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $this->assertOutputIs('greet', '');
     }
 
+    /**
+     * @test
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Impossible to call the 'greet' command: ['Silly\Test\FunctionalTest', 'foo'] is not a callable because 'foo' is a static method. Either use [new Silly\Test\FunctionalTest(), 'foo'] or configure a dependency injection container that supports autowiring like PHP-DI.
+     */
+    public function it_should_throw_if_the_command_is_a_method_call_to_a_static_method()
+    {
+        $this->application->command('greet', [__CLASS__, 'foo']);
+        $this->assertOutputIs('greet', '');
+    }
+
     private function assertOutputIs($command, $expected)
     {
         $output = new SpyOutput();
