@@ -93,9 +93,7 @@ class Application extends SymfonyApplication
         $command = $this->createCommand($expression, $commandFunction);
         $command->setAliases($aliases);
 
-        if (is_callable($callable)) {
-            $command->defaults($this->defaultsViaReflection($command, $callable));
-        }
+        $command->defaults($this->defaultsViaReflection($command, $callable));
 
         $this->add($command);
 
@@ -206,6 +204,10 @@ class Application extends SymfonyApplication
 
     private function defaultsViaReflection($command, $callable)
     {
+        if (! is_callable($callable)) {
+            return [];
+        }
+
         $function = CallableReflection::create($callable);
 
         $definition = $command->getDefinition();
