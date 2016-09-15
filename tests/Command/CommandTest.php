@@ -115,9 +115,11 @@ class CommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function arguments_that_do_not_map_to_defaults_are_not_added()
+    public function reflecting_defaults_for_nonexistant_inputs_does_not_throw_an_exception()
     {
         $this->application->command('greet [name]', [new GreetCommand, 'greet']);
+
+        // An exception was thrown previously about the argument / option `times` not existing.
     }
 
     /**
