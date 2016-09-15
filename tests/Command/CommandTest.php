@@ -124,8 +124,9 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException InvalidArgumentException
      */
-    public function a_command_with_an_invalid_static_callable_should_not_throw_deprecation_notices()
+    public function a_command_with_an_invalid_static_callable_show_throw_an_exception()
     {
         $this->application->command('greet [name]', [GreetCommand::class, 'greet']);
     }

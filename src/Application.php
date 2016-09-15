@@ -65,6 +65,8 @@ class Application extends SymfonyApplication
      */
     public function command($expression, $callable, array $aliases = [])
     {
+        $this->assertCallableIsValid($callable);
+
         $commandFunction = function (InputInterface $input, OutputInterface $output) use ($callable) {
             $parameters = array_merge(
                 [
@@ -202,6 +204,22 @@ class Application extends SymfonyApplication
         return $command;
     }
 
+    private function assertCallableIsValid($callable)
+    {
+        if ($this->container) {
+            return;
+        }
+
+        if ($this->isStaticCallToNonStaticMethod($callable)) {
+            list($class, $method) = $callable;
+
+            $message = "['{$class}', '{$method}'] is not a callable because '{$method}' is a static method'.";
+            $message .= " Either use [new {$class}(), '{$method}'] or configure a dependency injection container that supports autowiring like PHP-DI.";
+
+            throw new \InvalidArgumentException($message);
+        }
+    }
+
     private function defaultsViaReflection($command, $callable)
     {
         if (! is_callable($callable)) {
@@ -242,5 +260,23 @@ class Application extends SymfonyApplication
             new HyphenatedInputResolver,
             new DefaultValueResolver,
         ]);
+    }
+
+    /**
+     * Check if the callable represents a static call to a non-static method.
+     *
+     * @param mixed $callable
+     * @return bool
+     */
+    private function isStaticCallToNonStaticMethod($callable)
+    {
+        if (is_array($callable) && is_string($callable[0])) {
+            list($class, $method) = $callable;
+            $reflection = new \ReflectionMethod($class, $method);
+
+            return ! $reflection->isStatic();
+        }
+
+        return false;
     }
 }
