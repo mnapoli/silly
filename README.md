@@ -3,7 +3,7 @@ currentMenu: home
 ---
 Silly CLI micro-framework based on Symfony Console.
 
-[![Build Status](https://img.shields.io/travis/mnapoli/silly.svg?style=flat-square)](https://travis-ci.org/mnapoli/silly)
+[![Build Status](https://img.shields.io/travis/mnapoli/silly/master.svg?style=flat-square)](https://travis-ci.org/mnapoli/silly)
 [![Coverage Status](https://img.shields.io/coveralls/mnapoli/silly/master.svg?style=flat-square)](https://coveralls.io/r/mnapoli/silly?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/mnapoli/silly.svg?style=flat-square)](https://scrutinizer-ci.com/g/mnapoli/silly/?branch=master)
 [![Packagist](https://img.shields.io/packagist/dt/mnapoli/silly.svg?maxAge=2592000)](https://packagist.org/packages/mnapoli/silly)
