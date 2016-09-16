@@ -213,7 +213,7 @@ class Application extends SymfonyApplication
         if ($this->isStaticCallToNonStaticMethod($callable)) {
             list($class, $method) = $callable;
 
-            $message = "['{$class}', '{$method}'] is not a callable because '{$method}' is a static method'.";
+            $message = "['{$class}', '{$method}'] is not a callable because '{$method}' is a static method.";
             $message .= " Either use [new {$class}(), '{$method}'] or configure a dependency injection container that supports autowiring like PHP-DI.";
 
             throw new \InvalidArgumentException($message);
