@@ -46,12 +46,12 @@ class ExpressionParser
         ];
     }
 
-    private function isOption($token)
+    protected function isOption($token)
     {
         return $this->startsWith($token, '[-');
     }
 
-    private function parseArgument($token)
+    protected function parseArgument($token)
     {
         if ($this->endsWith($token, ']*')) {
             $mode = InputArgument::IS_ARRAY;
@@ -70,7 +70,7 @@ class ExpressionParser
         return new InputArgument($name, $mode);
     }
 
-    private function parseOption($token)
+    protected function parseOption($token)
     {
         $token = trim($token, '[]');
 
@@ -97,12 +97,12 @@ class ExpressionParser
         return new InputOption($name, $shortcut, $mode);
     }
 
-    private function startsWith($haystack, $needle)
+    protected function startsWith($haystack, $needle)
     {
         return substr($haystack, 0, strlen($needle)) === $needle;
     }
 
-    private function endsWith($haystack, $needle)
+    protected function endsWith($haystack, $needle)
     {
         return substr($haystack, -strlen($needle)) === $needle;
     }

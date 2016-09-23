@@ -31,17 +31,17 @@ class Application extends SymfonyApplication
     /**
      * @var ExpressionParser
      */
-    private $expressionParser;
+    protected $expressionParser;
 
     /**
      * @var InvokerInterface
      */
-    private $invoker;
+    protected $invoker;
 
     /**
      * @var ContainerInterface|null
      */
-    private $container;
+    protected $container;
 
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
@@ -191,7 +191,7 @@ class Application extends SymfonyApplication
         $this->invoker = $invoker;
     }
 
-    private function createCommand($expression, callable $callable)
+    protected function createCommand($expression, callable $callable)
     {
         $result = $this->expressionParser->parse($expression);
 
@@ -204,7 +204,7 @@ class Application extends SymfonyApplication
         return $command;
     }
 
-    private function assertCallableIsValid($callable)
+    protected function assertCallableIsValid($callable)
     {
         if ($this->container) {
             return;
@@ -220,7 +220,7 @@ class Application extends SymfonyApplication
         }
     }
 
-    private function defaultsViaReflection($command, $callable)
+    protected function defaultsViaReflection($command, $callable)
     {
         if (! is_callable($callable)) {
             return [];
@@ -252,7 +252,7 @@ class Application extends SymfonyApplication
      *
      * @return ParameterResolver
      */
-    private function createParameterResolver()
+    protected function createParameterResolver()
     {
         return new ResolverChain([
             new NumericArrayResolver,
@@ -268,7 +268,7 @@ class Application extends SymfonyApplication
      * @param mixed $callable
      * @return bool
      */
-    private function isStaticCallToNonStaticMethod($callable)
+    protected function isStaticCallToNonStaticMethod($callable)
     {
         if (is_array($callable) && is_string($callable[0])) {
             list($class, $method) = $callable;
