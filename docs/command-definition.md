@@ -76,3 +76,14 @@ $app->command('run [--dry-run]', function ($dryRun) {
     // ...
 });
 ```
+
+## Single command applications
+
+Sometimes you write an application with a single command, or you want one command to be the default command.
+
+Symfony provides the `setDefaultCommand()` method for that, you can use it like this:
+
+```php
+$app->command('run', /* ... */);
+$app->setDefaultCommand('run');
+```
