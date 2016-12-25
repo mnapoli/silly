@@ -331,6 +331,18 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $this->assertOutputIs('greet', '');
     }
 
+    /**
+     * @test
+     */
+    public function it_can_run_as_a_single_command_application()
+    {
+        $this->application->command('run', function (Out $output) {
+            $output->write('hello');
+        });
+        $this->application->setDefaultCommand('run');
+        $this->assertOutputIs('', 'hello');
+    }
+
     private function assertOutputIs($command, $expected)
     {
         $output = new SpyOutput();
