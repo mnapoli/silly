@@ -144,12 +144,18 @@
 </table>
 <p>Options are always optional (duh). If an option is required, then it should be an argument.</p>
 <h2 id="default-values">Default values</h2>
-<pre><code class="language-php">$app-&gt;command('greet [firstname] [lastname]', function () {
+<p>Default values for arguments and options can be defined explicitly:</p>
+<pre><code class="language-php">$app-&gt;command('greet [firstname] [lastname] [--age=]', function () {
     // ...
 })-&gt;defaults([
     'firstname' =&gt; 'John',
     'lastname'  =&gt; 'Doe',
+    'age' =&gt; 25,
 ]);</code></pre>
+<p>They can also be inferred from the callback parameters <em>if it is a callable</em>:</p>
+<pre><code class="language-php">$app-&gt;command('greet [name] [--age=]', function ($name = 'John', $age = 25) {
+    // ...
+});</code></pre>
 <h2 id="descriptions">Descriptions</h2>
 <pre><code class="language-php">$app-&gt;command('greet name [--yell]', function () {
     // ...
@@ -157,6 +163,16 @@
     'name'   =&gt; 'Who do you want to greet?',
     '--yell' =&gt; 'If set, the task will yell in uppercase letters',
 ]);</code></pre>
+<h2 id="hyphens">Hyphens</h2>
+<p>Arguments and options containing hyphens (<code>-</code>) are matched to camelCase variables:</p>
+<pre><code class="language-php">$app-&gt;command('run [--dry-run]', function ($dryRun) {
+    // ...
+});</code></pre>
+<h2 id="single-command-applications">Single command applications</h2>
+<p>Sometimes you write an application with a single command, or you want one command to be the default command.</p>
+<p>Symfony provides the <code>setDefaultCommand()</code> method for that, you can use it like this:</p>
+<pre><code class="language-php">$app-&gt;command('run', /* ... */);
+$app-&gt;setDefaultCommand('run');</code></pre>
                 </section>
 
             </div>

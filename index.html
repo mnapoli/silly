@@ -80,9 +80,10 @@
 
                 <section id="content" class="col-md-offset-3 col-lg-offset-2 col-md-9 col-lg-10">
                     <p>Silly CLI micro-framework based on Symfony Console.</p>
-<p><a href="https://travis-ci.org/mnapoli/silly"><img src="https://img.shields.io/travis/mnapoli/silly.svg?style=flat-square" alt="Build Status" /></a>
+<p><a href="https://travis-ci.org/mnapoli/silly"><img src="https://img.shields.io/travis/mnapoli/silly/master.svg?style=flat-square" alt="Build Status" /></a>
 <a href="https://coveralls.io/r/mnapoli/silly?branch=master"><img src="https://img.shields.io/coveralls/mnapoli/silly/master.svg?style=flat-square" alt="Coverage Status" /></a>
-<a href="https://scrutinizer-ci.com/g/mnapoli/silly/?branch=master"><img src="https://img.shields.io/scrutinizer/g/mnapoli/silly.svg?style=flat-square" alt="Scrutinizer Code Quality" /></a></p>
+<a href="https://scrutinizer-ci.com/g/mnapoli/silly/?branch=master"><img src="https://img.shields.io/scrutinizer/g/mnapoli/silly.svg?style=flat-square" alt="Scrutinizer Code Quality" /></a>
+<a href="https://packagist.org/packages/mnapoli/silly"><img src="https://img.shields.io/packagist/dt/mnapoli/silly.svg?maxAge=2592000" alt="Packagist" /></a></p>
 <h2 id="installation">Installation</h2>
 <pre><code class="language-bash">$ composer require mnapoli/silly</code></pre>
 <h2 id="usage">Usage</h2>
@@ -110,6 +111,8 @@ $app-&gt;run();</code></pre>
 <pre><code class="language-bash">$ php application.php greet
 Hello
 $ php application.php greet john --yell
+HELLO JOHN
+$ php application.php greet --yell john
 HELLO JOHN</code></pre>
 <p><code>Silly\Application</code> extends <code>Symfony\Console\Application</code> and can be used wherever Symfony's Application can.</p>
 <h2 id="documentation">Documentation</h2>
@@ -117,9 +120,11 @@ HELLO JOHN</code></pre>
 <li><a href="docs/command-definition.html">Command definition</a></li>
 <li><a href="docs/command-callables.html">Command callables</a></li>
 <li><a href="docs/helpers.html">Console helpers</a></li>
-<li><a href="docs/dependency-injection.html">Dependency injection</a></li>
+<li><a href="docs/dependency-injection.html">Dependency injection</a>
+<ul>
 <li><a href="docs/php-di.html">The PHP-DI edition</a></li>
 <li><a href="docs/pimple.html">The Pimple edition</a></li>
+</ul></li>
 </ul>
 <h2 id="do-more">Do more</h2>
 <p>Silly is just an implementation over the Symfony Console. Read <a href="http://symfony.com/doc/current/components/console/introduction.html">the Symfony documentation</a> to learn everything you can do with it.</p>
