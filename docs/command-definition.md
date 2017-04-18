@@ -30,7 +30,7 @@ A command can take options:
 | Simple flag (boolean value)                     | `greet [--yell]`         |
 | Option with an mandatory value                  | `greet [--iterations=]`  |
 | Option that can be used 0-n times (array value) | `greet [--iterations=]*` |
-| Option with a shortcut                          | `greet [-y|--yell]`      |
+| Option with a shortcut                          | `greet [-y\|--yell]`      |
 
 Options are always optional (duh). If an option is required, then it should be an argument.
 
