@@ -237,14 +237,40 @@ class Application extends SymfonyApplication
                 continue;
             }
 
-            if (! $definition->hasArgument($parameter->name) && ! $definition->hasOption($parameter->name)) {
+            $parameterName = $parameter->name;
+            $hyphenatedCaseName = $this->fromCamelCase($parameterName);
+
+            if ($definition->hasArgument($hyphenatedCaseName) || $definition->hasOption($hyphenatedCaseName)) {
+                $parameterName = $hyphenatedCaseName;
+            }
+
+            if (! $definition->hasArgument($parameterName) && ! $definition->hasOption($parameterName)) {
                 continue;
             }
 
-            $defaults[$parameter->name] = $parameter->getDefaultValue();
+            $defaults[$parameterName] = $parameter->getDefaultValue();
         }
 
         return $defaults;
+    }
+
+    /**
+     * Convert from camel case to hyphenated case
+     *
+     * @see http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
+     * @param string $input
+     * @return string
+     */
+    private function fromCamelCase($input)
+    {
+        preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+        $ret = $matches[0];
+
+        foreach ($ret as &$match) {
+            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+        }
+
+        return implode('-', $ret);
     }
 
     /**
