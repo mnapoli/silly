@@ -7,7 +7,7 @@ Silly helps you to do dependency injection without forcing you to use a specific
 
 ## Choose your container
 
-Silly uses the [container-interop standard](https://github.com/container-interop/container-interop) in order to be compatible with any dependency injection container. The idea is simple: you can set up Silly to use the implementation you prefer.
+Silly uses the [PSR-11 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md) in order to be compatible with any dependency injection container. The idea is simple: you can set up Silly to use the implementation you prefer.
 
 ```php
 $app->useContainer($container);

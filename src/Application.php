@@ -2,7 +2,7 @@
 
 namespace Silly;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Invoker\Exception\InvocationException;
 use Invoker\Invoker;
 use Invoker\InvokerInterface;
@@ -136,7 +136,7 @@ class Application extends SymfonyApplication
      * In case of conflict with a command parameters, the command parameter is injected
      * in priority over dependency injection.
      *
-     * @param ContainerInterface $container Container implementing container-interop
+     * @param ContainerInterface $container Container implementing PSR-11
      * @param bool               $injectByTypeHint
      * @param bool               $injectByParameterName
      */
