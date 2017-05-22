@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface as Out;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class FunctionalTest extends \PHPUnit_Framework_TestCase
 {
@@ -112,6 +113,17 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
             $out->write('hello ' . $in->getArgument('name'));
         });
         $this->assertOutputIs('greet john', 'hello john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_the_symfony_style_object()
+    {
+        $this->application->command('greet', function (SymfonyStyle $io) {
+            $io->write('hello');
+        });
+        $this->assertOutputIs('greet', 'hello');
     }
 
     /**

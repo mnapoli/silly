@@ -57,6 +57,18 @@ $app->command(
 );
 ```
 
+You can also inject the `SymfonyStyle` object by type-hinting it:
+
+```php
+use \Symfony\Component\Console\Style\SymfonyStyle;
+
+...
+
+$app->command('greet', function (SymfonyStyle $io) {
+    $io->write('hello');
+});
+```
+
 Finally, you can mix all that (remember the order of parameters doesn't matter):
 
 ```php

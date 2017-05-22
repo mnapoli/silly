@@ -21,6 +21,7 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * CLI application.
@@ -79,6 +80,7 @@ class Application extends SymfonyApplication
                     OutputInterface::class => $output,
                     Input::class => $input,
                     Output::class => $output,
+                    SymfonyStyle::class => new SymfonyStyle($input, $output),
                 ],
                 // Arguments and options are injected by parameter names
                 $input->getArguments(),
