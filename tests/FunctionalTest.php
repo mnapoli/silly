@@ -6,7 +6,10 @@ use Silly\Application;
 use Silly\Test\Fixture\SpyOutput;
 use Silly\Test\Mock\ArrayContainer;
 use stdClass;
+use Symfony\Component\Console\Input\Input;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface as Out;
 
 class FunctionalTest extends \PHPUnit_Framework_TestCase
@@ -44,6 +47,71 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         });
         $code = $this->application->run(new StringInput('greet'), new SpyOutput());
         $this->assertEquals(1, $code);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_the_output_and_input_by_name()
+    {
+        $this->application->command('greet name', function ($output, $input) {
+            $output->write('hello ' . $input->getArgument('name'));
+        });
+        $this->assertOutputIs('greet john', 'hello john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_the_output_and_input_by_name_even_if_a_service_has_the_same_name()
+    {
+        $container = new ArrayContainer([
+            'input' => 'foo',
+            'output' => 'bar',
+        ]);
+        $this->application->useContainer($container, false, true);
+        $this->application->command('greet name', function ($output, $input) {
+            $output->write('hello ' . $input->getArgument('name'));
+        });
+        $this->assertOutputIs('greet john', 'hello john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_the_output_and_input_by_type_hint_on_interfaces()
+    {
+        $this->application->command('greet name', function (Out $out, InputInterface $in) {
+            $out->write('hello ' . $in->getArgument('name'));
+        });
+        $this->assertOutputIs('greet john', 'hello john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_the_output_and_input_by_type_hint_on_classes()
+    {
+        $this->application->command('greet name', function (Output $out, Input $in) {
+            $out->write('hello ' . $in->getArgument('name'));
+        });
+        $this->assertOutputIs('greet john', 'hello john');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_inject_the_output_and_input_by_type_hint_even_if_a_service_has_the_same_name()
+    {
+        $container = new ArrayContainer([
+            'in' => 'foo',
+            'out' => 'bar',
+        ]);
+        $this->application->useContainer($container, false, true);
+        $this->application->command('greet name', function (Out $out, InputInterface $in) {
+            $out->write('hello ' . $in->getArgument('name'));
+        });
+        $this->assertOutputIs('greet john', 'hello john');
     }
 
     /**
