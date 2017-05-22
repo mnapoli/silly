@@ -9,16 +9,17 @@ use Invoker\InvokerInterface;
 use Invoker\ParameterResolver\AssociativeArrayResolver;
 use Invoker\ParameterResolver\Container\ParameterNameContainerResolver;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
-use Invoker\ParameterResolver\DefaultValueResolver;
-use Invoker\ParameterResolver\NumericArrayResolver;
 use Invoker\ParameterResolver\ResolverChain;
+use Invoker\ParameterResolver\TypeHintResolver;
 use Invoker\Reflection\CallableReflection;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -70,9 +71,16 @@ class Application extends SymfonyApplication
         $commandFunction = function (InputInterface $input, OutputInterface $output) use ($callable) {
             $parameters = array_merge(
                 [
+                    // Injection by parameter name
                     'input'  => $input,
                     'output' => $output,
+                    // Injections by type-hint
+                    InputInterface::class => $input,
+                    OutputInterface::class => $output,
+                    Input::class => $input,
+                    Output::class => $output,
                 ],
+                // Arguments and options are injected by parameter names
                 $input->getArguments(),
                 $input->getOptions()
             );
@@ -137,18 +145,15 @@ class Application extends SymfonyApplication
     ) {
         $this->container = $container;
 
-        $resolvers = [
-            new AssociativeArrayResolver,
-            new HyphenatedInputResolver,
-        ];
+        $resolver = $this->createParameterResolver();
         if ($injectByTypeHint) {
-            $resolvers[] = new TypeHintContainerResolver($container);
+            $resolver->appendResolver(new TypeHintContainerResolver($container));
         }
         if ($injectByParameterName) {
-            $resolvers[] = new ParameterNameContainerResolver($container);
+            $resolver->appendResolver(new ParameterNameContainerResolver($container));
         }
 
-        $this->invoker = new Invoker(new ResolverChain($resolvers), $container);
+        $this->invoker = new Invoker($resolver, $container);
     }
 
     /**
@@ -191,6 +196,11 @@ class Application extends SymfonyApplication
         $this->invoker = $invoker;
     }
 
+    /**
+     * @param string $expression
+     * @param callable $callable
+     * @return Command
+     */
     private function createCommand($expression, callable $callable)
     {
         $result = $this->expressionParser->parse($expression);
@@ -220,6 +230,11 @@ class Application extends SymfonyApplication
         }
     }
 
+    /**
+     * @param Command $command
+     * @param callable $callable
+     * @return array
+     */
     private function defaultsViaReflection($command, $callable)
     {
         if (! is_callable($callable)) {
@@ -248,17 +263,14 @@ class Application extends SymfonyApplication
     }
 
     /**
-     * Create the default parameter resolver.
-     *
-     * @return ParameterResolver
+     * @return ResolverChain
      */
     private function createParameterResolver()
     {
         return new ResolverChain([
-            new NumericArrayResolver,
             new AssociativeArrayResolver,
             new HyphenatedInputResolver,
-            new DefaultValueResolver,
+            new TypeHintResolver,
         ]);
     }
 
