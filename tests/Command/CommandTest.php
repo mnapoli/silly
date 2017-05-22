@@ -78,6 +78,20 @@ class CommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function allows_default_values_to_be_inferred_from_camel_case_parameters()
+    {
+        $command = $this->application->command('greet [name] [--yell] [--number-of-times=]', function ($numberOfTimes = 15) {
+            //
+        });
+
+        $definition = $command->getDefinition();
+
+        $this->assertEquals(15, $definition->getOption("number-of-times")->getDefault());
+    }
+
+    /**
+     * @test
+     */
     public function allows_default_values_to_be_inferred_from_callble_parameters()
     {
         $command = $this->application->command('greet [name] [--yell] [--times=]', [new GreetCommand, "greet"]);
