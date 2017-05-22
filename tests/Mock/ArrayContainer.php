@@ -2,7 +2,7 @@
 
 namespace Silly\Test\Mock;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class ArrayContainer implements ContainerInterface
 {
