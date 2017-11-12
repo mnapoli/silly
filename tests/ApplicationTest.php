@@ -4,11 +4,12 @@ namespace Silly\Test;
 
 use EasyMock\EasyMock;
 use Invoker\InvokerInterface;
+use PHPUnit\Framework\TestCase;
 use Silly\Application;
 use Silly\Test\Fixture\SpyOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
     use EasyMock;
 

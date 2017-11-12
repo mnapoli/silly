@@ -2,11 +2,12 @@
 
 namespace Silly\Test\Command;
 
+use PHPUnit\Framework\TestCase;
 use Silly\Command\ExpressionParser;
 use Silly\Input\InputArgument;
 use Silly\Input\InputOption;
 
-class ExpressionParserTest extends \PHPUnit_Framework_TestCase
+class ExpressionParserTest extends TestCase
 {
     /**
      * @test

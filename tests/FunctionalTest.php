@@ -2,6 +2,7 @@
 
 namespace Silly\Test;
 
+use PHPUnit\Framework\TestCase;
 use Silly\Application;
 use Silly\Test\Fixture\SpyOutput;
 use Silly\Test\Mock\ArrayContainer;
@@ -13,7 +14,7 @@ use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface as Out;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class FunctionalTest extends \PHPUnit_Framework_TestCase
+class FunctionalTest extends TestCase
 {
     /**
      * @var Application
