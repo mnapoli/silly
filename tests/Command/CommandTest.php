@@ -2,10 +2,11 @@
 
 namespace Silly\Test;
 
+use PHPUnit\Framework\TestCase;
 use Silly\Application;
 use Silly\Command\Command;
 
-class CommandTest extends \PHPUnit_Framework_TestCase
+class CommandTest extends TestCase
 {
     /**
      * @var Application
