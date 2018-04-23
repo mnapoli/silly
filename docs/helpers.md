@@ -51,7 +51,7 @@ use Joli\JoliNotif\NotifierFactory;
 
 $notifier = NotifierFactory::create();
 
-$app->command('greet', function () use (notifier) {
+$app->command('greet', function () use ($notifier) {
     $notification = (new Notification)
         ->setTitle('Notification title')
         ->setBody('This is the body of your notification')
@@ -60,3 +60,33 @@ $app->command('greet', function () use (notifier) {
     $notifier->send($notification);
 });
 ```
+
+If you are using the PHP-DI bridge ([read more here](php-di.md)) then you can configure PHP-DI to create the `Notifier` instance:
+
+```php
+use Joli\JoliNotif\Notifier;
+use Joli\JoliNotif\NotifierFactory;
+
+[…]
+
+$builder->addDefinitions([
+    Notifier::class => factory(NotifierFactory::class, 'create'),
+]);
+```
+
+You can then directly inject the Notifier in commands:
+
+```php
+use Joli\JoliNotif\Notifier;
+
+$app->command('greet', function (Notifier $notifier) {
+    $notification = (new Notification)
+        ->setTitle('Notification title')
+        ->setBody('This is the body of your notification')
+    ;
+
+    $notifier->send($notification);
+});
+```
+
+Read more about configuring PHP-DI in Silly [here](php-di.md#configuration).
