@@ -15,6 +15,16 @@ $ composer require mnapoli/silly-php-di
 
 ## Usage
 
+Simply use the alternative `Application` class offered by the PHP-DI bridge:
+
+```php
+// Replace this
+$app = new Silly\Application();
+
+// with this:
+$app = new Silly\Edition\PhpDi\Application();
+```
+
 Thanks to PHP-DI's autowiring capabilities you can define your commands in classes:
 
 ```php
@@ -42,6 +52,47 @@ $app->run();
 ```
 
 PHP-DI will automatically create a new instance of `MyCommand` when the `greet` command is called.
+
+## Customization
+
+You can configure PHP-DI by overridding the [`createContainer()`](https://github.com/mnapoli/silly-php-di/blob/master/src/Application.php#L29) method in your `Application` class:
+
+```php
+class MyApplication extends Silly\Edition\PhpDi\Application
+{
+    protected function createContainer()
+    {
+        $builder = ContainerBuilder::buildDevContainer();
+        
+        $builder->addDefinitions([
+            // add your PHP-DI config here
+        ]);
+        
+        return $builder->build(); // return the customized container
+    }
+}
+
+// In your main file you can now use your custom application class:
+$app = new MyApplication();
+```
+
+If you do not want to go through the trouble of creating a new class, you can use PHP 7's anonymous classes:
+
+```php
+$app = new class() extends Silly\Edition\PhpDi\Application
+{
+    protected function createContainer()
+    {
+        $builder = ContainerBuilder::buildDevContainer();
+        
+        $builder->addDefinitions([
+            // add your PHP-DI config here
+        ]);
+        
+        return $builder->build(); // return the customized container
+    }
+};
+```
 
 ## Dependency injection in parameters
 
