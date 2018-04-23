@@ -28,3 +28,35 @@ $app->command('init', function ($input, $output) {
     $this->runCommand('db:fixtures --verbose', $output)
 });
 ```
+
+## Desktop notifications
+
+You can easily send desktop notifications thanks to the [JoliNotif](https://github.com/jolicode/JoliNotif) package:
+
+![](https://github.com/jolicode/JoliNotif/raw/master/doc/images/demo.gif)
+
+Install it with Composer:
+
+```
+composer require jolicode/jolinotif
+```
+
+You can then either configure your container to inject the `Notifier` instance, or create it manually:
+
+```php
+use Joli\JoliNotif\Notification;
+use Joli\JoliNotif\NotifierFactory;
+
+[…]
+
+$notifier = NotifierFactory::create();
+
+$app->command('greet', function () use (notifier) {
+    $notification = (new Notification)
+        ->setTitle('Notification title')
+        ->setBody('This is the body of your notification')
+    ;
+
+    $notifier->send($notification);
+});
+```
