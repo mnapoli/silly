@@ -53,7 +53,7 @@ $app->run();
 
 PHP-DI will automatically create a new instance of `MyCommand` when the `greet` command is called.
 
-## Customization
+## Configuration
 
 You can configure PHP-DI by overridding the [`createContainer()`](https://github.com/mnapoli/silly-php-di/blob/master/src/Application.php#L29) method in your `Application` class:
 
