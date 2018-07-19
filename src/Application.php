@@ -73,7 +73,7 @@ class Application extends SymfonyApplication
             $parameters = array_merge(
                 [
                     // Injection by parameter name
-                    'input'  => $input,
+                    'input' => $input,
                     'output' => $output,
                     // Injections by type-hint
                     InputInterface::class => $input,
@@ -272,7 +272,7 @@ class Application extends SymfonyApplication
     }
 
     /**
-     * Convert from camel case to hyphenated case
+     * Convert from camel case to hyphenated case.
      *
      * @see http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
      * @param string $input
