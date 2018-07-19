@@ -11,7 +11,6 @@ use Invoker\ParameterResolver\ParameterResolver;
  *
  * E.g. `->call($callable, ['dry-run' => true])` will inject the boolean `true`
  * for a parameter named either `$dryrun` or `$dryRun`.
- *
  */
 class HyphenatedInputResolver implements ParameterResolver
 {
@@ -27,7 +26,7 @@ class HyphenatedInputResolver implements ParameterResolver
         }
 
         foreach ($providedParameters as $name => $value) {
-            $normalizedName = strtolower(str_replace("-", "", $name));
+            $normalizedName = strtolower(str_replace('-', '', $name));
 
             // Skip parameters that do not exist with the normalized name
             if (! array_key_exists($normalizedName, $parameters)) {
