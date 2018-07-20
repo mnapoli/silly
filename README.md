@@ -68,6 +68,16 @@ HELLO JOHN
 
 Silly is just an implementation over the Symfony Console. Read [the Symfony documentation](http://symfony.com/doc/current/components/console/introduction.html) to learn everything you can do with it.
 
+## Example applications
+
+Interested in seeing examples of Silly applications? Have a look at this short selection:
+
+- [Bref](https://github.com/mnapoli/bref/blob/c11662125d3d6cf3f96ee82c9e6fc60d9bcbbfdd/bref)
+- [Laravel Valet](https://github.com/laravel/valet/blob/7ed0280374340b30f1e2698fe85d7db543570f57/cli/valet.php)
+- [Blacksmith](https://github.com/mpociot/blacksmith/blob/320e97b9677f9e885d1f478593143f329afb9510/blacksmith)
+- [Documentarian](https://github.com/mpociot/documentarian/blob/34189ff3357aa3b013930b471410f135f09792de/documentarian)
+- [Jigsaw](https://github.com/tightenco/jigsaw/blob/9d50dcf65187cc0b834f194a15e4e90c6d68b9fc/jigsaw)
+
 ## Contributing
 
 See the [CONTRIBUTING](CONTRIBUTING.md) file.
