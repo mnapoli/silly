@@ -70,7 +70,7 @@ use Joli\JoliNotif\NotifierFactory;
 […]
 
 $builder->addDefinitions([
-    Notifier::class => factory(NotifierFactory::class, 'create'),
+    Notifier::class => factory([NotifierFactory::class, 'create']),
 ]);
 ```
 
