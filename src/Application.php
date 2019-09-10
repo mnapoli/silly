@@ -9,6 +9,7 @@ use Invoker\InvokerInterface;
 use Invoker\ParameterResolver\AssociativeArrayResolver;
 use Invoker\ParameterResolver\Container\ParameterNameContainerResolver;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
+use Invoker\ParameterResolver\DefaultValueResolver;
 use Invoker\ParameterResolver\ResolverChain;
 use Invoker\ParameterResolver\TypeHintResolver;
 use Invoker\Reflection\CallableReflection;
@@ -299,6 +300,7 @@ class Application extends SymfonyApplication
             new AssociativeArrayResolver,
             new HyphenatedInputResolver,
             new TypeHintResolver,
+            new DefaultValueResolver,
         ]);
     }
 
