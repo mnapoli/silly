@@ -1,7 +1,7 @@
 ---
 currentMenu: pimple
 ---
-# The Pimple edition
+# Pimple
 
 As explained in the [dependency injection](dependency-injection.md) documentation, Silly can work with any PSR-11 dependency injection container.
 
