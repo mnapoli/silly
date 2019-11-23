@@ -1,21 +1,29 @@
 ---
 currentMenu: pimple
 ---
-# The Pimple edition
+# Pimple
 
-As explained in the [dependency injection](dependency-injection.md) documentation, Silly can work with any dependency injection container.
+As explained in the [dependency injection](dependency-injection.md) documentation, Silly can work with any PSR-11 dependency injection container.
 
-However in order to provide an easy way to get started we provide a "Pimple edition" that is already configured with the [Pimple container](http://pimple.sensiolabs.org/).
-
-Pimple provides less features than the [PHP-DI edition](php-di.md) (for example no autowiring) but might interest those already familiar with it, e.g. Silex users.
+[Pimple](https://pimple.symfony.com/) provides less features than the [PHP-DI edition](php-di.md) (for example no autowiring) but might interest those already familiar with it, e.g. Silex users.
 
 ## Installation
 
 ```bash
-$ composer require mnapoli/silly-pimple
+$ composer require pimple/pimple ^3.0
 ```
 
 ## Usage
+
+Use Pimple as an application container:
+
+```php
+$container    = new \Pimple\Container();
+$psrContainer = new \Pimple\Psr11\Container($container);
+
+$app = new \Silly\Application();
+$app->useContainer($psrContainer);
+```
 
 You can store command callables in the container:
 
@@ -34,7 +42,6 @@ class MyCommand
     }
 }
 
-$app = new Silly\Edition\Pimple\Application();
 $pimple = $app->getContainer();
 
 $pimple['command.greet'] = function () {
