@@ -62,7 +62,7 @@ class ApplicationTest extends TestCase
         $output = new SpyOutput();
         $code = $this->application->runCommand('foo', $output);
 
-        $this->assertEquals('hello', $output->output);
+        $this->assertSame('hello', $output->output);
         $this->assertSame(0, $code);
     }
 

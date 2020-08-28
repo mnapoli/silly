@@ -55,9 +55,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             } elseif ($definition->hasOption($name)) {
                 $input = $definition->getOption($name);
             } else {
-                throw new \InvalidArgumentException(
-                    "Unable to set default for [{$name}]. It does not exist as an argument or option."
-                );
+                throw new \InvalidArgumentException("Unable to set default for [{$name}]. It does not exist as an argument or option.");
             }
 
             $input->setDefault($default);

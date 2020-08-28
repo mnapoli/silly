@@ -2,7 +2,6 @@
 
 namespace Silly;
 
-use Psr\Container\ContainerInterface;
 use Invoker\Exception\InvocationException;
 use Invoker\Invoker;
 use Invoker\InvokerInterface;
@@ -12,6 +11,7 @@ use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 use Invoker\ParameterResolver\ResolverChain;
 use Invoker\ParameterResolver\TypeHintResolver;
 use Invoker\Reflection\CallableReflection;
+use Psr\Container\ContainerInterface;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
@@ -94,11 +94,7 @@ class Application extends SymfonyApplication
             try {
                 return $this->invoker->call($callable, $parameters);
             } catch (InvocationException $e) {
-                throw new \RuntimeException(sprintf(
-                    "Impossible to call the '%s' command: %s",
-                    $input->getFirstArgument(),
-                    $e->getMessage()
-                ), 0, $e);
+                throw new \RuntimeException(sprintf("Impossible to call the '%s' command: %s", $input->getFirstArgument(), $e->getMessage()), 0, $e);
             }
         };
 
@@ -200,7 +196,6 @@ class Application extends SymfonyApplication
 
     /**
      * @param string $expression
-     * @param callable $callable
      * @return Command
      */
     private function createCommand($expression, callable $callable)
