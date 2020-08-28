@@ -2,8 +2,8 @@
 
 namespace Silly;
 
-use ReflectionFunctionAbstract;
 use Invoker\ParameterResolver\ParameterResolver;
+use ReflectionFunctionAbstract;
 
 /**
  * Tries to maps hyphenated parameters to a similarly-named,

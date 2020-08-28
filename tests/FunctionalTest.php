@@ -48,7 +48,7 @@ class FunctionalTest extends TestCase
             return 1;
         });
         $code = $this->application->run(new StringInput('greet'), new SpyOutput());
-        $this->assertEquals(1, $code);
+        $this->assertSame(1, $code);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Silly\Test;
+namespace Silly\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Silly\Application;
@@ -40,10 +40,10 @@ class CommandTest extends TestCase
 
         $definition = $this->command->getDefinition();
 
-        $this->assertEquals('Greet someone', $this->command->getDescription());
-        $this->assertEquals('Who?', $definition->getArgument('name')->getDescription());
-        $this->assertEquals('Yell?', $definition->getOption('yell')->getDescription());
-        $this->assertEquals('# of times to greet?', $definition->getOption('times')->getDescription());
+        $this->assertSame('Greet someone', $this->command->getDescription());
+        $this->assertSame('Who?', $definition->getArgument('name')->getDescription());
+        $this->assertSame('Yell?', $definition->getOption('yell')->getDescription());
+        $this->assertSame('# of times to greet?', $definition->getOption('times')->getDescription());
     }
 
     /**
@@ -58,8 +58,8 @@ class CommandTest extends TestCase
 
         $definition = $this->command->getDefinition();
 
-        $this->assertEquals('John', $definition->getArgument('name')->getDefault());
-        $this->assertEquals('1', $definition->getOption('times')->getDefault());
+        $this->assertSame('John', $definition->getArgument('name')->getDefault());
+        $this->assertSame('1', $definition->getOption('times')->getDefault());
     }
 
     /**
@@ -73,7 +73,7 @@ class CommandTest extends TestCase
 
         $definition = $command->getDefinition();
 
-        $this->assertEquals(15, $definition->getOption("times")->getDefault());
+        $this->assertSame(15, $definition->getOption("times")->getDefault());
     }
 
     /**
@@ -87,7 +87,7 @@ class CommandTest extends TestCase
 
         $definition = $command->getDefinition();
 
-        $this->assertEquals(15, $definition->getOption("number-of-times")->getDefault());
+        $this->assertSame(15, $definition->getOption("number-of-times")->getDefault());
     }
 
     /**
@@ -99,7 +99,7 @@ class CommandTest extends TestCase
 
         $definition = $command->getDefinition();
 
-        $this->assertEquals(15, $definition->getOption("times")->getDefault());
+        $this->assertSame(15, $definition->getOption("times")->getDefault());
     }
 
     /**
@@ -113,7 +113,7 @@ class CommandTest extends TestCase
 
         $definition = $this->command->getDefinition();
 
-        $this->assertEquals(5, $definition->getOption("times")->getDefault());
+        $this->assertSame('5', $definition->getOption("times")->getDefault());
     }
 
     /**
