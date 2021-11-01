@@ -28,11 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 $app = new Silly\Application();
 
 $app->command('greet [name] [--yell]', function ($name, $yell, OutputInterface $output) {
-    if ($name) {
-        $text = 'Hello, '.$name;
-    } else {
-        $text = 'Hello';
-    }
+    $text = $name ? "Hello, $name" : "Hello";
 
     if ($yell) {
         $text = strtoupper($text);
