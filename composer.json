@@ -21,7 +21,7 @@
         "psr/container": "^1.0|^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.4",
+        "phpunit/phpunit": "^6.4 || 7 || 8",
         "mnapoli/phpunit-easymock": "~1.0",
         "friendsofphp/php-cs-fixer": "^2.12"
     }

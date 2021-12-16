@@ -13,6 +13,8 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface as Out;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use RuntimeException;
+use InvalidArgumentException;
 
 class FunctionalTest extends TestCase
 {
@@ -21,7 +23,7 @@ class FunctionalTest extends TestCase
      */
     private $application;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->application = new Application();
         $this->application->setAutoExit(false);
@@ -381,33 +383,33 @@ class FunctionalTest extends TestCase
 
     /**
      * @test
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Impossible to call the 'greet' command: Unable to invoke the callable because no value was given for parameter 1 ($foo)
      */
     public function it_should_throw_if_a_parameter_cannot_be_resolved()
     {
+        $this->expectExceptionMessage('Impossible to call the \'greet\' command: Unable to invoke the callable because no value was given for parameter 1 ($foo)');
+        $this->expectException(RuntimeException::class);
         $this->application->command('greet', function (stdClass $foo) {});
         $this->assertOutputIs('greet', '');
     }
 
     /**
      * @test
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Impossible to call the 'greet' command: 'foo' is not a callable
      */
     public function it_should_throw_if_the_command_is_not_a_callable()
     {
+        $this->expectExceptionMessage("Impossible to call the 'greet' command: 'foo' is not a callable");
+        $this->expectException(RuntimeException::class);
         $this->application->command('greet', 'foo');
         $this->assertOutputIs('greet', '');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage ['Silly\Test\FunctionalTest', 'foo'] is not a callable because 'foo' is a static method. Either use [new Silly\Test\FunctionalTest(), 'foo'] or configure a dependency injection container that supports autowiring like PHP-DI.
      */
     public function it_should_throw_if_the_command_is_a_method_call_to_a_static_method()
     {
+        $this->expectExceptionMessage("['Silly\Test\FunctionalTest', 'foo'] is not a callable because 'foo' is a static method. Either use [new Silly\Test\FunctionalTest(), 'foo'] or configure a dependency injection container that supports autowiring like PHP-DI.");
+        $this->expectException(InvalidArgumentException::class);
         $this->application->command('greet', [__CLASS__, 'foo']);
         $this->assertOutputIs('greet', '');
     }

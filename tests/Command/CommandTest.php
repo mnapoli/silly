@@ -5,6 +5,7 @@ namespace Silly\Test\Command;
 use PHPUnit\Framework\TestCase;
 use Silly\Application;
 use Silly\Command\Command;
+use InvalidArgumentException;
 
 class CommandTest extends TestCase
 {
@@ -18,7 +19,7 @@ class CommandTest extends TestCase
      */
     private $command;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->application = new Application();
         $this->application->setAutoExit(false);
@@ -118,10 +119,11 @@ class CommandTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function setting_unknown_defaults_throws_an_exception()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->command->defaults([
             'doesnotexist' => '0',
         ]);
@@ -132,17 +134,18 @@ class CommandTest extends TestCase
      */
     public function reflecting_defaults_for_nonexistant_inputs_does_not_throw_an_exception()
     {
-        $this->application->command('greet [name]', [new GreetCommand, 'greet']);
+        $this->expectNotToPerformAssertions();
 
+        $this->application->command('greet [name]', [new GreetCommand, 'greet']);
         // An exception was thrown previously about the argument / option `times` not existing.
     }
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
      */
     public function a_command_with_an_invalid_static_callable_show_throw_an_exception()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->application->command('greet [name]', [GreetCommand::class, 'greet']);
     }
 }
