@@ -13,8 +13,6 @@ jobs:
           - php: '7.4'
           - php: '8.1'
           - php: '8.0'
-          - php: '8.1'
-            mode: low-deps
       fail-fast: false
 
     runs-on: ubuntu-latest
