@@ -18,7 +18,7 @@ class ApplicationTest extends TestCase
      */
     private $application;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->application = new Application();
         $this->application->setAutoExit(false);

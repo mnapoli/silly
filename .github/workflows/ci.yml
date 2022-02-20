@@ -10,14 +10,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: '7.0'
-            mode: low-deps
-          - php: '7.1'
-          - php: '7.2'
+          - php: '7.4'
           - php: '8.1'
           - php: '8.0'
-          - php: '8.1'
-            mode: low-deps
       fail-fast: false
 
     runs-on: ubuntu-latest

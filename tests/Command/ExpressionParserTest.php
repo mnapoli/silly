@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Silly\Command\ExpressionParser;
 use Silly\Input\InputArgument;
 use Silly\Input\InputOption;
+use Silly\Command\InvalidCommandExpression;
 
 class ExpressionParserTest extends TestCase
 {
@@ -151,11 +152,11 @@ class ExpressionParserTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Silly\Command\InvalidCommandExpression
-     * @expectedExceptionMessage An option must be enclosed by brackets: [--option]
      */
     public function it_provides_an_error_message_on_options_missing_brackets()
     {
+        $this->expectExceptionMessage("An option must be enclosed by brackets: [--option]");
+        $this->expectException(InvalidCommandExpression::class);
         $parser = new ExpressionParser();
         $parser->parse('greet --yell');
     }
