@@ -69,6 +69,41 @@ class ApplicationTest extends TestCase
     /**
      * @test
      */
+    public function runs_a_command_with_arguments()
+    {
+        $this->application->command('greet [name] [--yell]', function ($name, $yell, OutputInterface $output) {
+            if ($name) {
+                $text = 'Hello, '.$name;
+            } else {
+                $text = 'Hello';
+            }
+
+            if ($yell) {
+                $text = strtoupper($text);
+            }
+
+            $output->write($text);
+        });
+
+        $output = new SpyOutput();
+        $code = $this->application->runCommand('greet', $output);
+        $this->assertSame('Hello', $output->output);
+        $this->assertSame(0, $code);
+
+        $output = new SpyOutput();
+        $code = $this->application->runCommand('greet John', $output);
+        $this->assertSame('Hello, John', $output->output);
+        $this->assertSame(0, $code);
+
+        $output = new SpyOutput();
+        $code = $this->application->runCommand('greet John --yell', $output);
+        $this->assertSame('HELLO, JOHN', $output->output);
+        $this->assertSame(0, $code);
+    }
+
+    /**
+     * @test
+     */
     public function runs_a_command_without_output()
     {
         $this->application->command('foo', function (OutputInterface $output) {

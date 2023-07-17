@@ -15,7 +15,6 @@ use Psr\Container\ContainerInterface;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
@@ -169,7 +168,7 @@ class Application extends SymfonyApplication
 
         $command = $this->find($this->getCommandName($input));
 
-        return $command->run(new ArrayInput($input->getArguments()), $output ?: new NullOutput());
+        return $command->run($input, $output ?: new NullOutput());
     }
 
     /**
