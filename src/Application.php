@@ -162,7 +162,7 @@ class Application extends SymfonyApplication
      *
      * @return int 0 if everything went fine, or an error code
      */
-    public function runCommand($command, OutputInterface $output = null)
+    public function runCommand($command, ?OutputInterface $output = null)
     {
         $input = new StringInput($command);
 
