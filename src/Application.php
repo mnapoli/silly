@@ -103,7 +103,11 @@ class Application extends SymfonyApplication
 
         $command->defaults($this->defaultsViaReflection($command, $callable));
 
-        $this->add($command);
+        if (method_exists($this, 'addCommand')) {
+            $this->addCommand($command);
+        } else {
+            $this->add($command);
+        }
 
         return $command;
     }
@@ -300,7 +304,6 @@ class Application extends SymfonyApplication
     /**
      * Check if the callable represents a static call to a non-static method.
      *
-     * @param mixed $callable
      * @return bool
      */
     private function isStaticCallToNonStaticMethod($callable)

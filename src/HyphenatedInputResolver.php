@@ -3,7 +3,6 @@
 namespace Silly;
 
 use Invoker\ParameterResolver\ParameterResolver;
-use ReflectionFunctionAbstract;
 
 /**
  * Tries to maps hyphenated parameters to a similarly-named,
@@ -15,7 +14,7 @@ use ReflectionFunctionAbstract;
 class HyphenatedInputResolver implements ParameterResolver
 {
     public function getParameters(
-        ReflectionFunctionAbstract $reflection,
+        \ReflectionFunctionAbstract $reflection,
         array $providedParameters,
         array $resolvedParameters
     ): array {

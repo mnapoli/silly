@@ -2,25 +2,23 @@
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/src');
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config)
+    ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
-        '@PHP70Migration' => true,
+        '@PHP7x0Migration' => true,
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
-        'braces' => [
-            'allow_single_line_closure' => true,
+        'braces_position' => [
+            'allow_single_line_anonymous_functions' => true,
         ],
         'concat_space' => [
             'spacing' => 'one',
         ],
         'heredoc_to_nowdoc' => true,
-        'is_null' => [
-            'use_yoda_style' => false,
-        ],
         'linebreak_after_opening_tag' => true,
-        'new_with_braces' => false,
-        'no_multiline_whitespace_before_semicolons' => true,
+        'new_with_parentheses' => false,
+        'multiline_whitespace_before_semicolons' => false,
         'no_php4_constructor' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,

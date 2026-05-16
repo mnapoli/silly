@@ -57,6 +57,8 @@ class ApplicationTest extends TestCase
     {
         $this->application->command('foo', function (OutputInterface $output) {
             $output->write('hello');
+
+            return 0;
         });
 
         $output = new SpyOutput();
@@ -83,6 +85,8 @@ class ApplicationTest extends TestCase
             }
 
             $output->write($text);
+
+            return 0;
         });
 
         $output = new SpyOutput();
@@ -108,6 +112,8 @@ class ApplicationTest extends TestCase
     {
         $this->application->command('foo', function (OutputInterface $output) {
             $output->write('hello');
+
+            return 0;
         });
 
         $code = $this->application->runCommand('foo');

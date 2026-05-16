@@ -37,6 +37,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet', function (Out $output) {
             $output->write('hello');
+
+            return 0;
         });
         $this->assertOutputIs('greet', 'hello');
     }
@@ -60,6 +62,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet name', function ($output, $input) {
             $output->write('hello ' . $input->getArgument('name'));
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -76,6 +80,8 @@ class FunctionalTest extends TestCase
         $this->application->useContainer($container, false, true);
         $this->application->command('greet name', function ($output, $input) {
             $output->write('hello ' . $input->getArgument('name'));
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -87,6 +93,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet name', function (Out $out, InputInterface $in) {
             $out->write('hello ' . $in->getArgument('name'));
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -98,6 +106,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet name', function (Output $out, Input $in) {
             $out->write('hello ' . $in->getArgument('name'));
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -114,6 +124,8 @@ class FunctionalTest extends TestCase
         $this->application->useContainer($container, false, true);
         $this->application->command('greet name', function (Out $out, InputInterface $in) {
             $out->write('hello ' . $in->getArgument('name'));
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -125,6 +137,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet', function (SymfonyStyle $io) {
             $io->write('hello');
+
+            return 0;
         });
         $this->assertOutputIs('greet', 'hello');
     }
@@ -136,6 +150,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet name', function ($name, Out $output) {
             $output->write('hello ' . $name);
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -147,6 +163,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet [name]', function ($name, Out $output) {
             $output->write('hello ' . $name);
+
+            return 0;
         });
         $this->assertOutputIs('greet', 'hello ');
         $this->assertOutputIs('greet john', 'hello john');
@@ -159,6 +177,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet [-y|--yell]', function ($yell, Out $output) {
             $output->write(var_export($yell, true));
+
+            return 0;
         });
         $this->assertOutputIs('greet', 'false');
         $this->assertOutputIs('greet -y', 'true');
@@ -172,6 +192,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet [-i|--iterations=]', function ($iterations, Out $output) {
             $output->write($iterations === null ? 'null' : $iterations);
+
+            return 0;
         });
         $this->assertOutputIs('greet', 'null');
         $this->assertOutputIs('greet -i 123', '123');
@@ -185,6 +207,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet [-d|--dir=]*', function ($dir, Out $output) {
             $output->write('[' . implode(', ', $dir) . ']');
+
+            return 0;
         });
         $this->assertOutputIs('greet', '[]');
         $this->assertOutputIs('greet -d foo', '[foo]');
@@ -199,6 +223,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet first-name', function ($firstname, Out $output) {
             $output->write('hello ' . $firstname);
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -210,6 +236,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet first-name', function ($firstName, Out $output) {
             $output->write('hello ' . $firstName);
+
+            return 0;
         });
         $this->assertOutputIs('greet john', 'hello john');
     }
@@ -221,6 +249,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet [--yell-louder]', function ($yelllouder, Out $output) {
             $output->write(var_export($yelllouder, true));
+
+            return 0;
         });
         $this->assertOutputIs('greet', 'false');
         $this->assertOutputIs('greet --yell-louder', 'true');
@@ -233,6 +263,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('greet [--yell-louder]', function ($yellLouder, Out $output) {
             $output->write(var_export($yellLouder, true));
+
+            return 0;
         });
         $this->assertOutputIs('greet', 'false');
         $this->assertOutputIs('greet --yell-louder', 'true');
@@ -246,6 +278,8 @@ class FunctionalTest extends TestCase
         $container = new ArrayContainer([
             'command.greet' => function (Out $output) {
                 $output->write('hello');
+
+                return 0;
             }
         ]);
         $this->application->useContainer($container);
@@ -285,6 +319,8 @@ class FunctionalTest extends TestCase
 
         $this->application->command('greet', function (Out $output, stdClass $param) {
             $output->write($param->foo);
+
+            return 0;
         });
 
         $this->assertOutputIs('greet', 'hello');
@@ -304,6 +340,8 @@ class FunctionalTest extends TestCase
 
         $this->application->command('greet', function (Out $output, $param) {
             $output->write($param->foo);
+
+            return 0;
         });
 
         $this->assertOutputIs('greet', 'hello');
@@ -321,6 +359,8 @@ class FunctionalTest extends TestCase
 
         $this->application->command('greet param', function (Out $output, $param) {
             $output->write($param);
+
+            return 0;
         });
 
         $this->assertOutputIs('greet john', 'john');
@@ -344,6 +384,8 @@ class FunctionalTest extends TestCase
 
         $this->application->command('greet', function (Out $output, stdClass $param) {
             $output->write($param->foo);
+
+            return 0;
         });
 
         $this->assertOutputIs('greet', 'hello');
@@ -359,6 +401,8 @@ class FunctionalTest extends TestCase
         $whatIsThis = null;
         $this->application->command('foo', function () use (&$whatIsThis) {
             $whatIsThis = $this;
+
+            return 0;
         });
 
         $this->assertOutputIs('foo', '');
@@ -372,10 +416,14 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('foo', function (Out $output) {
             $output->write('hello');
+
+            return 0;
         });
         $this->application->command('bar', function (Out $output) {
-            $this->runCommand('foo', $output);
+            $code = $this->runCommand('foo', $output);
             $output->write(' world');
+
+            return $code;
         });
 
         $this->assertOutputIs('bar', 'hello world');
@@ -388,7 +436,9 @@ class FunctionalTest extends TestCase
     {
         $this->expectExceptionMessage('Impossible to call the \'greet\' command: Unable to invoke the callable because no value was given for parameter 1 ($foo)');
         $this->expectException(RuntimeException::class);
-        $this->application->command('greet', function (stdClass $foo) {});
+        $this->application->command('greet', function (stdClass $foo) {
+            return 0;
+        });
         $this->assertOutputIs('greet', '');
     }
 
@@ -421,6 +471,8 @@ class FunctionalTest extends TestCase
     {
         $this->application->command('run', function (Out $output) {
             $output->write('hello');
+
+            return 0;
         });
         $this->application->setDefaultCommand('run');
         $this->assertOutputIs('', 'hello');
@@ -440,5 +492,7 @@ class FunctionalTest extends TestCase
     public function foo(Out $output)
     {
         $output->write('hello');
+
+        return 0;
     }
 }

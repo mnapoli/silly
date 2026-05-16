@@ -15,13 +15,15 @@ jobs:
           - php: '8.1'
           - php: '8.2'
           - php: '8.3'
+          - php: '8.4'
+          - php: '8.5'
       fail-fast: false
 
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -31,7 +33,7 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Cache composer dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -42,3 +44,6 @@ jobs:
           if [ "${{ matrix.mode }}" = "low-deps" ]; then composer update --prefer-lowest --prefer-stable -n; fi;
       - name: Tests
         run: vendor/bin/phpunit
+      - name: Coding standards
+        if: matrix.php == '7.4'
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
