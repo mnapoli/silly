@@ -15,6 +15,7 @@ use Psr\Container\ContainerInterface;
 use Silly\Command\Command;
 use Silly\Command\ExpressionParser;
 use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
@@ -92,10 +93,16 @@ class Application extends SymfonyApplication
             }
 
             try {
-                return $this->invoker->call($callable, $parameters);
+                $result = $this->invoker->call($callable, $parameters);
             } catch (InvocationException $e) {
                 throw new \RuntimeException(sprintf("Impossible to call the '%s' command: %s", $input->getFirstArgument(), $e->getMessage()), 0, $e);
             }
+
+            if ($result === null) {
+                return SymfonyCommand::SUCCESS;
+            }
+
+            return $result;
         };
 
         $command = $this->createCommand($expression, $commandFunction);
